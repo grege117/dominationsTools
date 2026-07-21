@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dominations Legendary War Artifact Helper</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+    body { margin: 0; background: #12171d; color: #edf2f7; }
+    main { max-width: 1500px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+    .layout { display: grid; grid-template-columns: 300px 360px minmax(0, 1fr); gap: 1.25rem; }
+    .finder { min-width: 0; }
+    #owned-panel, #active-panel { align-self: start; background: #1c2530; border: 1px solid #354556; border-radius: .55rem; padding: 1rem; }
+    #owned-panel h2, #active-panel h2 { margin: 0 0 .75rem; }
+    #owned-results { display: grid; gap: .6rem; }
+    #owned-results article { padding: .75rem; }
+    .empty-owned { color: #b8c5d1; margin: 0; }
+    #active-bonuses { margin: 0; padding-left: 1.2rem; }
+    #active-bonuses li + li { margin-top: .5rem; }
+    .active-artifact { display: block; color: #8fc6ef; font-weight: 700; }
+    h1 { margin: 0 0 .25rem; font-size: clamp(1.55rem, 4vw, 2.25rem); }
+    .page-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+    #help-button { background: #526273; color: #edf2f7; }
+    .intro { color: #b8c5d1; margin-top: 0; }
+    label { display: block; font-weight: 700; margin: 1.5rem 0 .45rem; }
+    .search-row { display: flex; gap: .5rem; }
+    input { box-sizing: border-box; min-width: 0; flex: 1; padding: .8rem .9rem; border: 1px solid #526273; border-radius: .45rem; background: #1c2530; color: inherit; font: inherit; }
+    button { border: 0; border-radius: .45rem; padding: .75rem 1rem; background: #4e9bd8; color: #071521; cursor: pointer; font: inherit; font-weight: 700; }
+    button:hover { background: #79b8e7; }
+    button:disabled { cursor: not-allowed; opacity: .55; }
+    input:focus { outline: 3px solid #4e9bd8; outline-offset: 2px; }
+    #summary { color: #b8c5d1; margin: 1rem 0; }
+    #results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+    article { background: #1c2530; border: 1px solid #354556; border-radius: .55rem; padding: 1rem; }
+    article.multi-match { border: 3px solid #48bb78; }
+    .card-heading { display: flex; align-items: start; justify-content: space-between; gap: .5rem; margin-bottom: .6rem; }
+    h2 { font-size: 1.1rem; margin: 0; }
+    ul { margin: 0; padding-left: 1.3rem; }
+    li + li { margin-top: .25rem; }
+    .unavailable { color: #f2c879; margin: 0; }
+    #tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+    .tag { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; background: #29455f; padding: .3rem .45rem .3rem .7rem; }
+    .tag button { border-radius: 50%; min-width: 1.4rem; min-height: 1.4rem; padding: 0; background: #b8c5d1; color: #17202a; line-height: 1; }
+    #reset-tags { margin-top: .75rem; background: #526273; color: #edf2f7; }
+    .own-action, .remove-owned { flex: 0 0 auto; min-width: 2rem; min-height: 2rem; padding: 0; font-size: 1.25rem; line-height: 1; }
+    .own-action { background: #48bb78; color: #071d10; }
+    .remove-owned { background: #e25555; color: #fff; }
+    #reset-owned { width: 100%; margin-top: .75rem; background: #526273; color: #edf2f7; }
+    #share-panel { margin-top: 1rem; border-top: 1px solid #354556; padding-top: 1rem; }
+    #setup-string { box-sizing: border-box; display: block; width: 100%; min-height: 5rem; margin: .4rem 0; resize: vertical; border: 1px solid #526273; border-radius: .35rem; background: #12171d; color: inherit; font: .8rem ui-monospace, monospace; }
+    .share-actions { display: flex; gap: .5rem; }
+    .share-actions button { flex: 1; padding: .45rem; }
+    #share-status { min-height: 1.25rem; margin: .5rem 0 0; color: #b8c5d1; font-size: .9rem; }
+    #help-overlay[hidden] { display: none; }
+    #help-overlay { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; padding: 1rem; background: rgb(0 0 0 / 70%); }
+    #help-dialog { width: min(680px, 100%); max-height: min(760px, 90vh); overflow: auto; border: 1px solid #526273; border-radius: .65rem; background: #1c2530; padding: 1.25rem; box-shadow: 0 1rem 3rem rgb(0 0 0 / 50%); }
+    #help-dialog h2 { margin-top: 0; }
+    #help-dialog h3 { margin: 1.1rem 0 .35rem; font-size: 1rem; }
+    #help-dialog p, #help-dialog ul { color: #d6e0e9; }
+    #help-dialog li + li { margin-top: .35rem; }
+    #close-help { float: right; background: #526273; color: #edf2f7; }
+    .artifact-mode { display: flex; gap: .4rem; margin: .75rem 0; }
+    .artifact-mode button { padding: .35rem .55rem; font-size: .85rem; }
+    .artifact-mode button.selected { background: #48bb78; color: #071d10; }
+    .bonus-choice { cursor: pointer; }
+    .bonus-choice input { width: auto; margin: 0 .4rem 0 0; vertical-align: middle; }
+    mark { background: #f2c879; color: #17202a; border-radius: .15rem; padding: 0 .1em; }
+    @media (max-width: 1100px) { .layout { grid-template-columns: 300px minmax(0, 1fr); } #active-panel { grid-column: 1 / -1; } }
+    @media (max-width: 760px) { .layout { grid-template-columns: 1fr; } #active-panel { grid-column: auto; } }
+    @media (max-width: 720px) { #results { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 460px) { #results { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="layout">
+      <aside id="active-panel">
+        <h2>Active bonuses</h2>
+        <ul id="active-bonuses"></ul>
+        <section id="share-panel">
+          <label for="setup-string">Share setup</label>
+          <textarea id="setup-string" spellcheck="false" placeholder="Copy a setup string here to load it"></textarea>
+          <div class="share-actions">
+            <button id="copy-setup" type="button">Copy</button>
+            <button id="load-setup" type="button">Load</button>
+          </div>
+          <p id="share-status" aria-live="polite"></p>
+        </section>
+      </aside>
+      <aside id="owned-panel">
+        <h2>Owned Artifacts</h2>
+        <div id="owned-results"></div>
+        <button id="reset-owned" type="button" disabled>Reset owned</button>
+      </aside>
+      <section class="finder">
+        <div class="page-heading">
+          <h1>Dominations Legendary War Artifact Helper</h1>
+          <button id="help-button" type="button">Help</button>
+        </div>
+        <p class="intro">Add one or more bonus-text tags. Matching ignores letter case.</p>
+        <label for="search">Bonus search</label>
+        <div class="search-row">
+          <input id="search" type="search" autocomplete="off" placeholder="For example: bazooka damage">
+          <button id="add-tag" type="button">Tag</button>
+        </div>
+        <div id="tags" aria-label="Active tags"></div>
+        <button id="reset-tags" type="button" disabled>Reset tags</button>
+        <p id="summary" aria-live="polite"></p>
+        <section id="results" aria-live="polite"></section>
+      </section>
+    </div>
+  </main>
+  <div id="help-overlay" hidden>
+    <section id="help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <button id="close-help" type="button" aria-label="Close help">×</button>
+      <h2 id="help-title">How to use this helper</h2>
+      <h3>Find artifacts</h3>
+      <p>Enter bonus text and select <strong>Tag</strong> (or press Enter). Results match any active tag, ignoring case. Remove a tag with its × or clear them with Reset tags. A green outline means an artifact matches more than one tag.</p>
+      <h3>Track what you own</h3>
+      <p>Select the green ✓ on a result to move it to Owned Artifacts. Select the red × to remove it. Owned artifacts are excluded from search results.</p>
+      <h3>Choose active bonuses</h3>
+      <p>In Owned Artifacts, select <strong>Active</strong> for up to four artifacts; every bonus from those artifacts becomes active. For an artifact that is not Active, select one bonus checkbox to make just that bonus active. The Active bonuses column shows the combined, alphabetized list.</p>
+      <h3>Save and share</h3>
+      <p>Your owned and active selections are saved only in this browser’s local storage. Select <strong>Copy</strong> to create a share string. Send that string to another user; they paste it into Share setup and select <strong>Load</strong>. Loading replaces their current owned and active setup, then saves it in their browser.</p>
+    </section>
+  </div>
+
+  <script id="artifact-data" type="application/json">
+{
+  "source": "https://dominations.fandom.com/wiki/Legendary_War_Artifacts#List_of_Legendary_War_Artifacts",
+  "artifacts": [
+    {"name":"6th Anniversary Six-Shooter","status":"available","bonuses":["Bazooka Damage 9%","Bazooka Damage 8%","Bomber HP 9%","Attack Helicopter Damage 9%","Invading Paratrooper Damage -9%"]},
+    {"name":"10th Mountain Division War Kit","status":"available","bonuses":["APC Damage 8%","APC Hitpoints 7%","Machine Gun Infantry Damage 8%","Enemy Defender Spawn Time 6%","Enemy Redoubt Damage -6%"]},
+    {"name":"Arm Reliquary of Charlemagne","status":"available","bonuses":["Paratrooper Damage 8%","Paratrooper Hitpoints 7%","Generals' Damage 7%","Fighter Damage 7%","Invading Heavy Tank Damage -6%"]},
+    {"name":"Alfred Jewel","status":"available","bonuses":["Heavy Infantry DMG +7%","Heavy Infantry Attack Speed +7%","APC HP +6%","APC Deploy Time -6%","Quick Victory Time +3%"]},
+    {"name":"ASDIC Type 113X","status":"available","bonuses":["Invading Barracks Troop Damage -9%","Invading Factory Troop Damage -9%","Invading Airstrip Troop Damage -9%","Defender Spawn Time -9%","Missile Silo Damage 9%"]},
+    {"name":"ASM-135 Anti-Satellite Missile","status":"available","bonuses":["Missile Silo and Red Button Damage 7%","Missile Silo Damage 7%","Airstrip Troop Damage 3%","Air Defense Damage 7%","Defender Hitpoints 7%"]},
+    {"name":"Battersea Shield","status":"available","bonuses":["Missile Silo and Red Button Damage +7%","Bomber DMG +8%","Invading Recon Scan Duration -8%","Quick Victory Time +9%","Invading Factory Troop HP -6%"]},
+    {"name":"Berlichingen's Iron Prosthetic Hand","status":"available","bonuses":["Transport Cooldown -9%","Transport Movement Speed +9%","Enemy Anti-Tank Gun Damage -16%","Paratrooper Hitpoints +8%","Paratrooper Damage +8%"]},
+    {"name":"British Kettle Drum","status":"available","bonuses":["Mortar Troop Damage 6%","Barracks Troop Damage 7%","Barracks Troop Hitpoints 7%","Ranged Siege Damage 6%","Enemy Defender Spawn Time 6%"]},
+    {"name":"Bust of Ramesses II","status":"available","bonuses":["Air Defense Damage +7%","Air Defense Hitpoints +7%","All Defensive Towers Hitpoints +6%","Invading Generals' Hitpoints -7%","Invading Bomber Damage -7%"]},
+    {"name":"Caligula's Ring","status":"available","bonuses":["Paratrooper Damage 6%","Paratrooper Hitpoints 6%","Guerilla Damage 6%","Ranged Siege Damage 3%","Wall Sapper Damage 6%"]},
+    {"name":"Capt. McConnell's Hero Ensemble","status":"available","bonuses":["Generals' Hitpoints and Damage 7%","Oil Looted 8%","Fighter Damage 8%","Fighter Damage 9%","Airstrip Troop Hitpoints 9%"]},
+    {"name":"Creighton Abrams Tank Commander Kit","status":"available","bonuses":["Heal Duration 6%","Heavy Tank Damage 6%","Decoy Tactic Hitpoints 7%","Guerrilla Hitpoints 6%","Enemy Defender Spawn Time 7%"]},
+    {"name":"Crescent Blade","status":"available","bonuses":["Defender Hitpoints 6%","Enemy Defender Spawn Time 6%","Air Defense Damage 6%","Generals' Damage 6%","Heavy Tank Damage 3%"]},
+    {"name":"Crocodile Mask","status":"available","bonuses":["General Damage 3%","Defender Hitpoints 6%","Invading Factory Troop Damage -3%","Invading Factory Troop Hitpoints -3%","Invading Gerneral's Hitpoitnts -3%"]},
+    {"name":"Cryolophosaurus Skull","status":"available","bonuses":["Fighter Damage 3%","Bomber Damage 6%","Redoubt Damage 6%","Bazooka Damage 6%","Machine Gun Infantry Damage 6%"]},
+    {"name":"Da Vinci's Flying Machine","status":"available","bonuses":["Fighters Damage 6%","Fighters Hitpoints 6%","Fighters Hitpoints 6%","Heavy Tank Damage 6%","Heavy Tank Hitpoints 6%"]},
+    {"name":"Da Vinci's Machine Gun","status":"available","bonuses":["Machine Gun Infantry Damage 9%","Machine Gun Infantry Hitpoints 7%","Invading Factory Troop Damage -8%","Ranged Siege Damage 8%","Enemy Catapult Hitpoints -8%"]},
+    {"name":"Demarcation Stone","status":"available","bonuses":["Heavy Infantry Damage 3%","Ranged Infantry Damage 3%","Supply Vehicles Healing 3%","Invading Machine Gun Infantry Damage -3%","All Enemy Defensive Towers Damage -3%"]},
+    {"name":"Desert Storm PSN-8 Manpack","status":"available","bonuses":["Rally Cooldown -11%","Increase Rally Duration 9%","Factory Troop Hitpoints 9%","Factory Troop Damage 9%","Enemy Towers Damage -9%"]},
+    {"name":"DomiNations Game Box","status":"available","bonuses":["Generals' Hitpoints +6%","Generals's Attack Speed +6%","Enemy Defender Spawn Time +6%","Generals' Damage +6%","General's Movement Speed +6%"]},
+    {"name":"Elephant Archer Quiver","status":"available","bonuses":["Invading Airstrip Troop Damage -6%","Invading Bomber Hitpoints -6%","Heavy Cavarly Damage +6%","Heavy Cavarly Damage +6%","Air Defense Attack Speed +6%"]},
+    {"name":"Flamma's Helmet","status":"available","bonuses":["Guerrilla Damage 6%","Guerrilla Hitpoints 6%","Enemy Defender Spawn Time 3%","Increase Rally Duration 6%","Missile Silo and Big Red Button Damage 7%"]},
+    {"name":"Gemini 8 Gloves","status":"available","bonuses":["Defender Hitpoints 7%","Enemy Defender Spawn Time 7%","All Defensive Towers Hitpoints 7%","All Defensive Towers Damage 7%","Enemy Missile Silo Damage -7%"]},
+    {"name":"Gemini 8 Helmet","status":"available","bonuses":["Attack Helicopter Damage 7%","Armored Car Damage 7%","Bazooka Damage 7%","Heavy Tank Damage 7%","Barracks Troop Damage 7%"]},
+    {"name":"General Pershing's Bas-Relief","status":"available","bonuses":["Heavy Infantry Hitpoints 3%","Ranged Infantry Hitpoints 3%","Heavy Cavalry Hitpoints 3%","Ranged Siege Damage 3%","Raider Damage 3%"]},
+    {"name":"Great Imperial Crown","status":"available","bonuses":["All Defensive Towers Damage 6%","Invading Heavy Tank Damage -8%","MRL Damage 8%","Invading Bazooka Damage -7%","Fighter Damage 6%"]},
+    {"name":"Huey Armament System","status":"available","bonuses":["Attack Helicopter Damage 9%","Attack Helicopter Damage 9%","Attack Helicopter Hitpoints 9%","Bazooka Damage 9%","All Enemy Defensive Towers Damage -6%"]},
+    {"name":"Joyeuse Sword","status":"available","bonuses":["Factory Troop Damage 6%","Heavy Tank Damage 6%","Bomber Damage 6%","Generals' Damage 6%","Defender Damage 6%"]},
+    {"name":"Julius Caesar Statue","status":"available","bonuses":["Invading Generals' Damage -8%","Invading Generals' Hitpoints -8%","Generals' Damage 9%","Barracks Troop Damage 8%","Invading Barracks Troop Damage -9%"]},
+    {"name":"Koh-i-Noor Diamond","status":"available","bonuses":["Enemy Defender Spawn Time +8%","Guerrilla Movement Speed +6%","Assault Vehicle DMG +8%","Assault Vehicle HP +8%","Supply Vehicle Healing +11%"]},
+    {"name":"Leftwich Trophy","status":"unavailable","bonuses":[]},
+    {"name":"Leonidas Bust","status":"available","bonuses":["Mercenary Camp Deploys Spartans when Destroyed 1","Quick Victory Time 6%","Generals Hitpoints and Damage 6%","Bazooka Damage 6%","Bazooka Hitpoints 6%"]},
+    {"name":"Liberty Bell","status":"available","bonuses":["Ranged Infantry Damage +8%","Ranged Infantry Damage +8%","Airstrip Troop Hitpoints +7%","Enemy Air Defense Damage -11%","All Enemy Defensive Towers Damage -7%"]},
+    {"name":"Maori War Club","status":"available","bonuses":["All Defensive Towers Hitpoints and Damage 3%","Defender Spawn Time -6%","Defender Movement Speed 3%","Invading Recon Scan Duration -7%","Generals Attack Speed 3%"]},
+    {"name":"Narmer Palette","status":"available","bonuses":["Invading Fighter Damage -6%","Air Defense Damage 6%","Bomber Hitpoints 3%","Fighter Hitpoints 6%","Bazooka Hitpoints 6%"]},
+    {"name":"Napoleon's Boxlock Pistol","status":"available","bonuses":["Supply Vehicle Healing +9%","Generals' HP +7%","Heavy Cavalry HP +9%","Barracks Troop HP +6%","Fighter DMG +7%"]},
+    {"name":"Nine Men's Morris","status":"available","bonuses":["Invading Factory Troop Damage -3%","Invading Factory Troop Damage -3%","Anti-Tank Gun Damage +9%","Missile Silo Damage +9%","Missile Silo Damage +9%"]},
+    {"name":"Norden Bombsight","status":"available","bonuses":["APC Deploys Marines On Death 1","Coalition Troop Damage 8%","Defenders Spawn Time -8%","Invading Fighter Damage -8%","Machine Gun Infantry Damage 8%"]},
+    {"name":"Normandy SCR-536 \"Walkie-Talkie\"","status":"available","bonuses":["Bazooka Damage 9%","Bomber Damage 9%","Armored Car Damage 9%","MRL Damage 9%","Rally Cooldown -11%"]},
+    {"name":"Olmec Colossal Heads","status":"available","bonuses":["Rally Cooldown -11%","Increase Rally Duration +11%","Enemy Defender Spawn Time +6%","Fighter DMG +8%","Fighter DMG +8%"]},
+    {"name":"Plane Gyro Gunsight","status":"available","bonuses":["Bomber HP 6%","Bomber HP 6%","Recon Bonus Duration 3%","Bazooka Attack Speed 3%","Quick Victory Time 6%"]},
+    {"name":"Ramesses Ⅱ's Abu Simbel","status":"available","bonuses":["All Defensive Towers Damage 9%","Defender Spawn Time -9%","Invading Bazooka Damage -7%","Invading Guerrilla Damage -9%","All Defensive Towers Damage 9%"]},
+    {"name":"Raven Rattle","status":"available","bonuses":["Fighter HP +7%","Fighter DMG +7%","Enemy Redoubt DMG -6%","Enemy Tower DMG -6%","All Enemy Defensive Tower DMG -11%"]},
+    {"name":"Red Baron's Engine","status":"available","bonuses":["Fighter Damage 6%","Bomber Damage 6%","Heavy Tank Damage 6%","Machine Gun Infantry Damage 6%","Invading Fighters Damage -6%"]},
+    {"name":"RQ-2 Pioneer","status":"available","bonuses":["Invading Bombers Damage -8%","Invading Bombers Damage -8%","Invading Bombers Hitpoints -7%","Air Defense Hitpoints 6%","Air Defense Damage 6%"]},
+    {"name":"Sanada Yukimura's Armor","status":"available","bonuses":["Castle spawns Sword Saints when Destroyed 1","Generals Hitpoints 6%","Bazooka Damage 6%","Fighter Damage 8%","Guerrilla Hitpoints 8%"]},
+    {"name":"Sophilos Dinos","status":"available","bonuses":["Wall Miner DMG +9%","Commando DMG +6%","Commando HP +8%","Decoy Tactic HP +6%","Enemy Defender Spawn Time +6%"]},
+    {"name":"Supermarine Spitfire Engine","status":"available","bonuses":["Bomber Damage 9%","Bomber Hitpoints 9%","Bomber Hitpoints 8%","Heavy Tank Damage 9%","Fighter Damage 9%"]},
+    {"name":"T-34 Tank Engine","status":"available","bonuses":["Heavy Tank Damage 7%","Heavy Tank Hitpoints 7%","Invading Heavy Tank Damage -7%","Invading Heavy Tank Hitpoints -7%","Invading Heavy Cavalry Damage -7%"]},
+    {"name":"The Art of War","status":"available","bonuses":["Heavy Tank Hitpoints 9%","Heavy Tank Damage 9%","Invading Generals' Hitpoints -9%","Invading Generals' Damage -9%","Generals' Hitpoints and Damage 9%"]},
+    {"name":"The White Death's War Kit","status":"available","bonuses":["Sniper Tower Damage 6%","Sniper Tower Hitpoints 6%","Enemy Defender Spawn Time 6%","All Defensive Towers Hitpoints 3%","All Defensive Towers Damage 3%"]},
+    {"name":"Tizona Sword","status":"available","bonuses":["Enemy Defender Spawn Time 6%","Heavy Cavalry Damage 6%","Heavy Cavalry Hitpoints 3%","Ranged Siege Damage 6%","Ranged Siege Hitpoints 3%"]},
+    {"name":"Vespa 150 TAP","status":"available","bonuses":["Machine Gun Infantry Damage 7%","Machine Gun Infantry Hitpoints 7%","Ranged Siege Damage 7%","Ranged Siege Hitpoints 7%","Factory Troop Damage 1%"]},
+    {"name":"Vz-9 Avrocar","status":"available","bonuses":["Invading Fighter Damage -6%","Air Defense Damage 6%","Invading Bomber Damage -6%","Invading Fighter Hitpoints -6%","Invading Bomber Hitpoints -6%"]},
+    {"name":"Welrod MkII","status":"available","bonuses":["All Enemy Defensive Towers Hitpoints -8%","Enemy Defender Spawn Time 8%","Guerrilla Damage 6%","Guerrilla Hitpoints 6%","Airstrip Troop Damage 6%"]},
+    {"name":"Winged Victory of Samothrace","status":"available","bonuses":["Quick Victory Time +11%","Heavy Tank Damage +7%","Heavy Tank Hitpoints +7%","Bomber Damage +7%","Bomber Hitpoints +7%"]},
+    {"name":"ZG 1229 Vampir","status":"available","bonuses":["Sniper Tower Damage 8%","Sniper Tower Damage 8%","Enemy Tower Damage -7%","Mortar Troop Hitpoints 8%","APC Hiptoints 9%"]}
+  ]
+}
+
+  </script>
+  <script>
+    (() => {
+      const data = JSON.parse(document.getElementById("artifact-data").textContent);
+      const input = document.getElementById("search");
+      const addTagButton = document.getElementById("add-tag");
+      const tagList = document.getElementById("tags");
+      const resetTagsButton = document.getElementById("reset-tags");
+      const ownedResults = document.getElementById("owned-results");
+      const resetOwnedButton = document.getElementById("reset-owned");
+      const activeBonuses = document.getElementById("active-bonuses");
+      const setupString = document.getElementById("setup-string");
+      const copySetupButton = document.getElementById("copy-setup");
+      const loadSetupButton = document.getElementById("load-setup");
+      const shareStatus = document.getElementById("share-status");
+      const helpButton = document.getElementById("help-button");
+      const helpOverlay = document.getElementById("help-overlay");
+      const closeHelpButton = document.getElementById("close-help");
+      const summary = document.getElementById("summary");
+      const results = document.getElementById("results");
+      const tags = [];
+      const ownedStorageKey = "dominations-legendary-artifact-finder-owned";
+      const artifactNames = new Set(data.artifacts.map((artifact) => artifact.name));
+      const owned = new Set();
+      const active = new Set();
+      const selectedBonus = new Map();
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(ownedStorageKey) || "[]");
+        const savedOwned = Array.isArray(saved) ? saved : saved.owned || [];
+        savedOwned.filter((name) => artifactNames.has(name)).forEach((name) => owned.add(name));
+        if (!Array.isArray(saved)) {
+          (saved.active || []).filter((name) => owned.has(name)).slice(0, 4).forEach((name) => active.add(name));
+          Object.entries(saved.selectedBonuses || saved.showcase || {}).forEach(([name, bonusIndex]) => {
+            const artifact = data.artifacts.find((item) => item.name === name);
+            if (owned.has(name) && artifact && Number.isInteger(bonusIndex) && bonusIndex >= 0 && bonusIndex < artifact.bonuses.length && !active.has(name)) selectedBonus.set(name, bonusIndex);
+          });
+        }
+      } catch (_) {
+        // Ignore invalid or unavailable local storage and use an empty owned list.
+      }
+
+      function persistOwned() {
+        try {
+          localStorage.setItem(ownedStorageKey, JSON.stringify({
+            owned: [...owned],
+            active: [...active],
+            selectedBonuses: Object.fromEntries(selectedBonus)
+          }));
+        } catch (_) {
+          // The display remains usable if the browser prevents local storage.
+        }
+      }
+
+      function exportSetup() {
+        return {
+          version: 1,
+          owned: [...owned],
+          active: [...active],
+          showcase: Object.fromEntries(selectedBonus)
+        };
+      }
+
+      function serializeSetup() {
+        const bytes = new TextEncoder().encode(JSON.stringify(exportSetup()));
+        let binary = "";
+        bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
+        return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+      }
+
+      function deserializeSetup(serialized) {
+        const base64 = serialized.replace(/-/g, "+").replace(/_/g, "/");
+        const padded = base64 + "=".repeat((4 - base64.length % 4) % 4);
+        const bytes = Uint8Array.from(atob(padded), (character) => character.charCodeAt(0));
+        const setup = JSON.parse(new TextDecoder().decode(bytes));
+        if (!setup || setup.version !== 1 || !Array.isArray(setup.owned) || !Array.isArray(setup.active) || typeof setup.showcase !== "object" || setup.showcase === null) throw new Error("Unsupported setup format.");
+        return setup;
+      }
+
+      function loadSetup(setup) {
+        const nextOwned = new Set(setup.owned.filter((name) => artifactNames.has(name)));
+        const nextActive = new Set(setup.active.filter((name) => nextOwned.has(name)).slice(0, 4));
+        const nextSelectedBonus = new Map();
+        Object.entries(setup.showcase).forEach(([name, bonusIndex]) => {
+          const artifact = data.artifacts.find((item) => item.name === name);
+          if (nextOwned.has(name) && !nextActive.has(name) && artifact && Number.isInteger(bonusIndex) && bonusIndex >= 0 && bonusIndex < artifact.bonuses.length) nextSelectedBonus.set(name, bonusIndex);
+        });
+        owned.clear(); nextOwned.forEach((name) => owned.add(name));
+        active.clear(); nextActive.forEach((name) => active.add(name));
+        selectedBonus.clear(); nextSelectedBonus.forEach((index, name) => selectedBonus.set(name, index));
+        persistOwned();
+        renderActiveBonuses();
+        renderOwned();
+        render();
+      }
+
+      function appendHighlightedText(element, text, queries) {
+        if (!queries.length) {
+          element.append(document.createTextNode(text));
+          return;
+        }
+        const normalizedText = text.toLocaleLowerCase();
+        const ranges = [];
+        queries.forEach((query) => {
+          let position = 0;
+          let matchPosition = normalizedText.indexOf(query, position);
+          while (matchPosition !== -1) {
+            ranges.push([matchPosition, matchPosition + query.length]);
+            position = matchPosition + query.length;
+            matchPosition = normalizedText.indexOf(query, position);
+          }
+        });
+        ranges.sort((left, right) => left[0] - right[0]);
+        const mergedRanges = ranges.reduce((merged, range) => {
+          const previous = merged.at(-1);
+          if (previous && range[0] <= previous[1]) previous[1] = Math.max(previous[1], range[1]);
+          else merged.push(range);
+          return merged;
+        }, []);
+        let position = 0;
+        mergedRanges.forEach(([start, end]) => {
+          element.append(document.createTextNode(text.slice(position, start)));
+          const highlight = document.createElement("mark");
+          highlight.textContent = text.slice(start, end);
+          element.append(highlight);
+          position = end;
+        });
+        element.append(document.createTextNode(text.slice(position)));
+      }
+
+      function renderTags() {
+        tagList.replaceChildren(...tags.map((tag, index) => {
+          const chip = document.createElement("span");
+          chip.className = "tag";
+          chip.append(document.createTextNode(tag.text));
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.textContent = "×";
+          remove.setAttribute("aria-label", `Remove tag ${tag.text}`);
+          remove.addEventListener("click", () => {
+            tags.splice(index, 1);
+            renderTags();
+            render();
+          });
+          chip.append(remove);
+          return chip;
+        }));
+        resetTagsButton.disabled = tags.length === 0;
+      }
+
+      function addTag() {
+        const text = input.value.trim();
+        const query = text.toLocaleLowerCase();
+        if (!query || tags.some((tag) => tag.query === query)) return;
+        tags.push({ text, query });
+        input.value = "";
+        renderTags();
+        render();
+        input.focus();
+      }
+
+      function createArtifactCard(artifact, matchingTagCount, isOwned) {
+        const card = document.createElement("article");
+        if (matchingTagCount > 1) card.classList.add("multi-match");
+        const heading = document.createElement("div");
+        heading.className = "card-heading";
+        const title = document.createElement("h2");
+        title.textContent = artifact.name;
+        heading.append(title);
+        const action = document.createElement("button");
+        action.type = "button";
+        action.className = isOwned ? "remove-owned" : "own-action";
+        action.textContent = isOwned ? "×" : "✓";
+        action.setAttribute("aria-label", isOwned ? `Remove ${artifact.name} from owned` : `Mark ${artifact.name} as owned`);
+        action.addEventListener("click", () => {
+          if (isOwned) {
+            owned.delete(artifact.name);
+            active.delete(artifact.name);
+            selectedBonus.delete(artifact.name);
+          } else owned.add(artifact.name);
+          persistOwned();
+          renderActiveBonuses();
+          renderOwned();
+          render();
+        });
+        heading.append(action);
+        card.append(heading);
+        const isActive = active.has(artifact.name);
+        if (artifact.status === "unavailable") {
+          const note = document.createElement("p");
+          note.className = "unavailable";
+          note.textContent = "No bonus data is available in the source Quick View table.";
+          card.append(note);
+        } else {
+          const list = document.createElement("ul");
+          artifact.bonuses.forEach((bonus, index) => {
+            const item = document.createElement("li");
+            if (isOwned && !isActive) {
+              const choice = document.createElement("label");
+              choice.className = "bonus-choice";
+              const checkbox = document.createElement("input");
+              checkbox.type = "checkbox";
+              checkbox.checked = selectedBonus.get(artifact.name) === index;
+              checkbox.addEventListener("change", () => {
+                if (checkbox.checked) selectedBonus.set(artifact.name, index);
+                else selectedBonus.delete(artifact.name);
+                persistOwned();
+                renderActiveBonuses();
+                renderOwned();
+              });
+              choice.append(checkbox);
+              appendHighlightedText(choice, bonus, tags.map((tag) => tag.query));
+              item.append(choice);
+            } else appendHighlightedText(item, bonus, tags.map((tag) => tag.query));
+            list.append(item);
+          });
+          card.append(list);
+        }
+        if (isOwned && artifact.bonuses.length > 0) {
+          const modes = document.createElement("div");
+          modes.className = "artifact-mode";
+          const activeButton = document.createElement("button");
+          activeButton.type = "button";
+          activeButton.textContent = "Active";
+          activeButton.classList.toggle("selected", isActive);
+          activeButton.disabled = !isActive && active.size >= 4;
+          activeButton.addEventListener("click", () => {
+            if (active.has(artifact.name)) active.delete(artifact.name);
+            else {
+              if (active.size >= 4) return;
+              selectedBonus.delete(artifact.name);
+              active.add(artifact.name);
+            }
+            persistOwned();
+            renderActiveBonuses();
+            renderOwned();
+          });
+          modes.append(activeButton);
+          card.append(modes);
+        }
+        return card;
+      }
+
+      function renderActiveBonuses() {
+        const entries = [];
+        data.artifacts.forEach((artifact) => {
+          if (active.has(artifact.name)) artifact.bonuses.forEach((bonus) => entries.push([artifact.name, bonus]));
+          if (selectedBonus.has(artifact.name)) entries.push([artifact.name, artifact.bonuses[selectedBonus.get(artifact.name)]]);
+        });
+        if (entries.length === 0) {
+          const empty = document.createElement("li");
+          empty.className = "empty-owned";
+          empty.textContent = "No active bonuses yet.";
+          activeBonuses.replaceChildren(empty);
+          return;
+        }
+        entries.sort((left, right) => left[1].localeCompare(right[1], undefined, { sensitivity: "base" }));
+        activeBonuses.replaceChildren(...entries.map(([, bonus]) => {
+          const item = document.createElement("li");
+          item.textContent = bonus;
+          return item;
+        }));
+      }
+
+      function renderOwned() {
+        const artifacts = data.artifacts.filter((artifact) => owned.has(artifact.name));
+        if (artifacts.length === 0) {
+          const empty = document.createElement("p");
+          empty.className = "empty-owned";
+          empty.textContent = "No owned artifacts yet.";
+          ownedResults.replaceChildren(empty);
+        } else {
+          ownedResults.replaceChildren(...artifacts.map((artifact) => createArtifactCard(artifact, 0, true)));
+        }
+        resetOwnedButton.disabled = artifacts.length === 0;
+      }
+
+      function render() {
+        const matches = data.artifacts.map((artifact) => ({
+          artifact,
+          matchingTagCount: tags.filter((tag) => artifact.bonuses.some((bonus) => bonus.toLocaleLowerCase().includes(tag.query))).length
+        })).filter(({ artifact, matchingTagCount }) => !owned.has(artifact.name) && (tags.length === 0 || matchingTagCount > 0));
+        summary.textContent = `${matches.length} artifact${matches.length === 1 ? "" : "s"} shown${tags.length ? ` for ${tags.length} tag${tags.length === 1 ? "" : "s"}` : ""}.`;
+        results.replaceChildren(...matches.map(({ artifact, matchingTagCount }) => createArtifactCard(artifact, matchingTagCount, false)));
+      }
+
+      addTagButton.addEventListener("click", addTag);
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          addTag();
+        }
+      });
+      resetTagsButton.addEventListener("click", () => {
+        tags.length = 0;
+        renderTags();
+        render();
+      });
+      resetOwnedButton.addEventListener("click", () => {
+        owned.clear();
+        active.clear();
+        selectedBonus.clear();
+        persistOwned();
+        renderActiveBonuses();
+        renderOwned();
+        render();
+      });
+      copySetupButton.addEventListener("click", async () => {
+        const serialized = serializeSetup();
+        setupString.value = serialized;
+        try {
+          await navigator.clipboard.writeText(serialized);
+          shareStatus.textContent = "Setup copied.";
+        } catch (_) {
+          setupString.select();
+          document.execCommand("copy");
+          shareStatus.textContent = "Setup selected for copying.";
+        }
+      });
+      loadSetupButton.addEventListener("click", () => {
+        try {
+          loadSetup(deserializeSetup(setupString.value.trim()));
+          shareStatus.textContent = "Setup loaded.";
+        } catch (_) {
+          shareStatus.textContent = "That setup string is invalid or unsupported.";
+        }
+      });
+      helpButton.addEventListener("click", () => {
+        helpOverlay.hidden = false;
+        closeHelpButton.focus();
+      });
+      closeHelpButton.addEventListener("click", () => {
+        helpOverlay.hidden = true;
+        helpButton.focus();
+      });
+      helpOverlay.addEventListener("click", (event) => {
+        if (event.target === helpOverlay) closeHelpButton.click();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !helpOverlay.hidden) closeHelpButton.click();
+      });
+      renderTags();
+      renderActiveBonuses();
+      renderOwned();
+      render();
+    })();
+  </script>
+</body>
+</html>
