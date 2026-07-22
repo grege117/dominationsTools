@@ -1,0 +1,4136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DomiNations War Council Helper</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #12171d;
+      color: #edf2f7;
+    }
+
+    button, input, select, textarea { font: inherit; }
+
+    button {
+      border: 0;
+      border-radius: .45rem;
+      padding: .7rem .9rem;
+      background: #4e9bd8;
+      color: #071521;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    button:hover { background: #79b8e7; }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+      outline: 3px solid #79b8e7;
+      outline-offset: 2px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid #526273;
+      border-radius: .45rem;
+      background: #151c24;
+      color: inherit;
+      padding: .75rem .8rem;
+    }
+
+    a { color: #8fc6ef; }
+
+    main {
+      width: min(1750px, 100%);
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 360px minmax(0, 1fr);
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .panel, .councilor-card {
+      border: 1px solid #354556;
+      border-radius: .6rem;
+      background: #1c2530;
+    }
+
+    .panel { padding: 1rem; }
+    .sidebar { position: sticky; top: 1rem; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.55rem, 4vw, 2.3rem);
+      line-height: 1.15;
+    }
+
+    h2 { margin: 0 0 .8rem; font-size: 1.15rem; }
+    h3 { margin: 0; font-size: 1.05rem; }
+
+    .page-heading {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .intro, .muted, #catalog-summary, #council-status, #share-status {
+      color: #b8c5d1;
+    }
+
+    .intro { margin: .4rem 0 1.25rem; }
+    #help-button, .secondary, #reset-council, #close-help {
+      background: #526273;
+      color: #edf2f7;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(200px, 2fr) minmax(150px, 1fr) minmax(150px, 1fr);
+      gap: .75rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: .35rem;
+      font-weight: 700;
+    }
+
+    #catalog-summary { margin: .4rem 0 1rem; }
+
+    #catalog-results {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .75rem;
+    }
+
+    .councilor-card {
+      min-width: 0;
+      padding: 1rem;
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: .6rem;
+      margin-bottom: .25rem;
+    }
+
+    .card-heading a { text-decoration: none; }
+    .card-heading a:hover { text-decoration: underline; }
+
+    .type-badge {
+      display: inline-block;
+      margin: .3rem 0 .7rem;
+      border-radius: 999px;
+      background: #29455f;
+      padding: .2rem .55rem;
+      color: #d9ecfb;
+      font-size: .85rem;
+      font-weight: 700;
+    }
+
+    .rarity-label {
+      margin: 0 0 .5rem;
+      color: #b8c5d1;
+      font-size: .9rem;
+    }
+
+    .bonus-list, #active-bonuses {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+
+    .bonus-list li + li, #active-bonuses li + li { margin-top: .3rem; }
+    .no-bonuses { margin: .5rem 0; color: #f2c879; }
+    mark { border-radius: .15rem; background: #f2c879; color: #17202a; padding: 0 .08em; }
+
+    .add-councilor { flex: 0 0 auto; padding: .45rem .65rem; }
+    .add-councilor[aria-disabled="true"] {
+      background: #526273;
+      color: #edf2f7;
+      opacity: .65;
+    }
+
+    #selected-councilors {
+      display: grid;
+      gap: .7rem;
+    }
+
+    .selected-card { padding: .8rem; }
+    .selected-card .card-heading { margin-bottom: .6rem; }
+    .selected-card label { margin-top: .6rem; font-size: .9rem; }
+    .selected-card .bonus-list { margin-top: .7rem; font-size: .92rem; }
+    .remove-councilor { background: #d95858; color: #fff; padding: .35rem .55rem; }
+    .remove-councilor:hover { background: #ef7777; }
+
+    #council-status, #share-status {
+      min-height: 1.25rem;
+      margin: .7rem 0;
+      font-size: .92rem;
+    }
+
+    #reset-council { width: 100%; }
+    #reset-council:disabled { cursor: not-allowed; opacity: .55; }
+
+    #share-panel {
+      margin-top: 1.2rem;
+      border-top: 1px solid #354556;
+      padding-top: 1rem;
+    }
+
+    #setup-string {
+      min-height: 6rem;
+      resize: vertical;
+      font: .78rem ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    .share-actions { display: flex; gap: .5rem; margin-top: .5rem; }
+    .share-actions button { flex: 1; }
+
+    #help-overlay[hidden] { display: none; }
+    #help-overlay {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      background: rgb(0 0 0 / 72%);
+    }
+
+    #help-dialog {
+      width: min(700px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      border: 1px solid #526273;
+      border-radius: .7rem;
+      background: #1c2530;
+      padding: 1.25rem;
+      box-shadow: 0 1rem 3rem rgb(0 0 0 / 55%);
+    }
+
+    #close-help { float: right; padding: .35rem .6rem; font-size: 1.25rem; }
+    #help-dialog h2 { margin-right: 3rem; }
+    #help-dialog h3 { margin: 1.1rem 0 .35rem; }
+    #help-dialog p { color: #d6e0e9; }
+
+    @media (max-width: 1280px) {
+      .layout { grid-template-columns: 300px minmax(0, 1fr); }
+      #active-panel { grid-column: 1; grid-row: 1; }
+      #council-panel { grid-column: 1; grid-row: 2; }
+      .catalog { grid-column: 2; grid-row: 1 / span 2; }
+      .sidebar { position: static; }
+      #catalog-results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 820px) {
+      .layout { grid-template-columns: 1fr; }
+      #active-panel, #council-panel, .catalog { grid-column: 1; grid-row: auto; }
+      #active-panel { order: 2; }
+      #council-panel { order: 1; }
+      .catalog { order: 0; }
+      .filters { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 540px) {
+      main { padding: 1rem .7rem 2rem; }
+      #catalog-results { grid-template-columns: 1fr; }
+      .page-heading { align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="layout">
+      <aside id="active-panel" class="panel sidebar">
+        <h2>Active War bonuses</h2>
+        <ul id="active-bonuses"></ul>
+
+        <section id="share-panel">
+          <label for="setup-string">Share this council</label>
+          <textarea id="setup-string" spellcheck="false" autocapitalize="off" placeholder="Copy a setup string here to load it"></textarea>
+          <div class="share-actions">
+            <button id="copy-setup" type="button">Copy</button>
+            <button id="load-setup" type="button">Load</button>
+          </div>
+          <p id="share-status" aria-live="polite"></p>
+        </section>
+      </aside>
+
+      <aside id="council-panel" class="panel sidebar">
+        <h2>Selected councilors (<span id="selected-count">0</span>/7)</h2>
+        <div id="selected-councilors"></div>
+        <p id="council-status" aria-live="polite"></p>
+        <button id="reset-council" type="button" disabled>Reset council</button>
+      </aside>
+
+      <section class="catalog">
+        <div class="page-heading">
+          <h1>DomiNations War Council Helper</h1>
+          <button id="help-button" type="button">Help</button>
+        </div>
+        <p class="intro">Find councilors by name, type, or War bonus, then select up to seven for your council.</p>
+
+        <div class="filters">
+          <div>
+            <label for="search">Search</label>
+            <input id="search" type="search" autocomplete="off" placeholder="For example: defender hitpoints">
+          </div>
+          <div>
+            <label for="type-filter">Councilor type</label>
+            <select id="type-filter"><option value="">All types</option></select>
+          </div>
+          <div>
+            <label for="display-rarity">Displayed rarity</label>
+            <select id="display-rarity"></select>
+          </div>
+        </div>
+
+        <p id="catalog-summary" aria-live="polite"></p>
+        <section id="catalog-results" aria-label="Councilor search results"></section>
+      </section>
+    </div>
+  </main>
+
+  <div id="help-overlay" hidden>
+    <section id="help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <button id="close-help" type="button" aria-label="Close help">&times;</button>
+      <h2 id="help-title">How to use the War Council helper</h2>
+
+      <h3>Find councilors</h3>
+      <p>Search by councilor name, type, or War bonus. Search ignores letter case. Use the type and displayed-rarity filters to narrow the catalog. Matching text is highlighted in the results.</p>
+
+      <h3>Build a council</h3>
+      <p>Select <strong>Add</strong> to put a councilor in your War Council. You can select up to seven unique councilors. A new selection starts at the rarity currently shown in the catalog. Change each selected councilor&rsquo;s rarity independently or remove that councilor at any time.</p>
+
+      <h3>Review active bonuses</h3>
+      <p>The Active War bonuses column contains every bonus supplied by the selected councilors at their chosen rarities. The list is alphabetized; repeated bonuses remain visible.</p>
+
+      <h3>Save and share</h3>
+      <p>Your selections and rarities are saved only in this browser&rsquo;s local storage. Select <strong>Copy</strong> to put a versioned setup string on the clipboard. Another user can paste that string into the share box and select <strong>Load</strong>. Loading a valid string replaces the current council; invalid strings leave it unchanged.</p>
+    </section>
+  </div>
+
+  <script id="councilor-data" type="application/json">
+{
+  "source": "https://dominations.fandom.com/wiki/Councilors#Councilors_List",
+  "generatedAt": "2026-07-21T19:33:54Z",
+  "rarities": [
+    "Common",
+    "Uncommon",
+    "Rare",
+    "Epic",
+    "Legendary"
+  ],
+  "councilors": [
+    {
+      "id": "alcibiades",
+      "name": "Alcibiades",
+      "type": "Leader",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Alcibiades",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Catapult Damage",
+            "value": "+6%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Catapult Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+8%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Catapult Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Redoubt Damage",
+            "value": "+9%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Catapult Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Redoubt Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Catapult Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Redoubt Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+30%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "alexander-the-great",
+      "name": "Alexander the Great",
+      "type": "Leader",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Alexander_the_Great",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+3%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+5%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+5%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+9%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and HP",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+15%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+14%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Air Defense Damage and HP",
+            "value": "+8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "charlemagne",
+      "name": "Charlemagne",
+      "type": "Leader",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Charlemagne",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+6%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+8%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+6%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+11%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+8%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-15%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+14%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+10%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-18%"
+          },
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+14%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+18%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-24%"
+          },
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+18%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+12%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "erik-the-red",
+      "name": "Erik the Red",
+      "type": "Leader",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Erik_the_Red",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+5%"
+          },
+          {
+            "stat": "Sabotage Duration",
+            "value": "+15%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+9%"
+          },
+          {
+            "stat": "Sabotage Duration",
+            "value": "+19%"
+          },
+          {
+            "stat": "Invading Bomber Damage",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+14%"
+          },
+          {
+            "stat": "Sabotage Duration",
+            "value": "+24%"
+          },
+          {
+            "stat": "Invading Bomber Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Defensive Missile Silo Damage",
+            "value": "+8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hammurabi",
+      "name": "Hammurabi",
+      "type": "Leader",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Hammurabi",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Redoubt DMG",
+            "value": "+9%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Redoubt DMG",
+            "value": "+11%"
+          },
+          {
+            "stat": "Redoubt DMG",
+            "value": "+11%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Redoubt DMG",
+            "value": "+13%"
+          },
+          {
+            "stat": "Redoubt DMG",
+            "value": "+13%"
+          },
+          {
+            "stat": "Tower DMG",
+            "value": "+11%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Redoubt DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "Redoubt DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "Tower DMG",
+            "value": "+13%"
+          },
+          {
+            "stat": "Tower DMG",
+            "value": "+13%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Redoubt DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Redoubt DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Tower DMG",
+            "value": "-16%"
+          },
+          {
+            "stat": "Tower DMG",
+            "value": "-16%"
+          },
+          {
+            "stat": "Air Defense DMG & HP",
+            "value": "+18%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "joan-of-arc",
+      "name": "Joan of Arc",
+      "type": "Leader",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Joan_of_Arc(Council)",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-7%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-9%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and Hitpoints",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-11%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and Hitpoints",
+            "value": "+8%"
+          },
+          {
+            "stat": "Generals' Hitpoints",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-14%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and Hitpoints",
+            "value": "+11%"
+          },
+          {
+            "stat": "Generals' Hitpoints",
+            "value": "+14%"
+          },
+          {
+            "stat": "Paratrooper Damage and Hitpoints",
+            "value": "+8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "oda-nobunaga",
+      "name": "Oda Nobunaga",
+      "type": "Leader",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Oda_Nobunaga",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Generals DMG",
+            "value": "+7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Generals DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Generals DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+6%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Generals DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Generals DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+16%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+16%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+20%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "robert-the-bruce",
+      "name": "Robert the Bruce",
+      "type": "Leader",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Robert_the_Bruce",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-3%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-5%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-14%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Paratrooper Damage and HP",
+            "value": "+8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ada-lovelace",
+      "name": "Ada Lovelace",
+      "type": "Scholar",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Ada_Lovelace",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Machine Gun Infantry DMG",
+            "value": "+7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Machine Gun Infantry DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Machine Gun Infantry HP",
+            "value": "+9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Machine Gun Infantry DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Machine Gun Infantry HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Machine Gun Infantry DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "Machine Gun Infantry HP",
+            "value": "+16%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-10%"
+          },
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Machine Gun Infantry DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Machine Gun Infantry HP",
+            "value": "+20%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+12%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "alfred-nobel",
+      "name": "Alfred Nobel",
+      "type": "Scholar",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Alfred_Nobel",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Recon Scan Bonus Damage",
+            "value": "+10%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "charles-babbage",
+      "name": "Charles Babbage",
+      "type": "Scholar",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Charles_Babbage",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Attack Helicopter DMG & HP",
+            "value": "+3%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Attack Helicopter DMG & HP",
+            "value": "+4%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Attack Helicopter DMG & HP",
+            "value": "+5%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-12%"
+          },
+          {
+            "stat": "Enemy Tower HP",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Attack Helicopter DMG & HP",
+            "value": "+7%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-16%"
+          },
+          {
+            "stat": "Enemy Tower HP",
+            "value": "-10%"
+          },
+          {
+            "stat": "Enemy Air Defense DMG",
+            "value": "-16%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Attack Helicopter DMG & HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-20%"
+          },
+          {
+            "stat": "Enemy Tower HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Enemy Air Defense DMG",
+            "value": "-20%"
+          },
+          {
+            "stat": "Attack Helicopter DMG",
+            "value": "+10%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "florence-nightingale",
+      "name": "Florence Nightingale",
+      "type": "Scholar",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Florence_Nightingale",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Enemy Air Def. DMG",
+            "value": "-3%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Enemy Air Def. DMG",
+            "value": "-4%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Enemy Air Def. DMG",
+            "value": "-5%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+5%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+8%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Enemy Air Def. DMG",
+            "value": "-6%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+7%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+11%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+7%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Enemy Air Def. DMG",
+            "value": "-8%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+10%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+15%"
+          },
+          {
+            "stat": "Paratrooper DMG",
+            "value": "+10%"
+          },
+          {
+            "stat": "Bomber DMG & HP",
+            "value": "+7%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "kong-qiu",
+      "name": "Kong Qiu",
+      "type": "Scholar",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Kong_Qiu",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Tower DMG",
+            "value": "+9%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Tower DMG",
+            "value": "+10%"
+          },
+          {
+            "stat": "Sniper Tower DMG",
+            "value": "+10%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Tower DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Sniper Tower DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+8%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Tower DMG",
+            "value": "+15%"
+          },
+          {
+            "stat": "Sniper Tower DMG",
+            "value": "+15%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+10%"
+          },
+          {
+            "stat": "Defender HP",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Tower DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Sniper Tower DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "Defender HP",
+            "value": "+18%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "+14%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "marie-curie",
+      "name": "Marie Curie",
+      "type": "Scholar",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Marie_Curie",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Defensive Tower DMG",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defensive Tower DMG",
+            "value": "+6%"
+          },
+          {
+            "stat": "Air Defense DMG",
+            "value": "+7%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defensive Tower DMG",
+            "value": "+7%"
+          },
+          {
+            "stat": "Air Defense DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Air Defense DMG & HP",
+            "value": "+5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defensive Tower DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Air Defense DMG",
+            "value": "+11%"
+          },
+          {
+            "stat": "Air Defense DMG & HP",
+            "value": "+7%"
+          },
+          {
+            "stat": "Invading Fighter DMG & HP",
+            "value": "-7%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defensive Tower DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Air Defense DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "Air Defense DMG & HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Invading Fighter DMG & HP",
+            "value": "-10%"
+          },
+          {
+            "stat": "All Defensive Tower DMG & HP",
+            "value": "+10%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pericles",
+      "name": "Pericles",
+      "type": "Scholar",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Pericles",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+2%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+4%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+5%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+9%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Invading Guerrilla HP",
+            "value": "-11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Fighter HP",
+            "value": "+14%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+15%"
+          },
+          {
+            "stat": "Invading Guerrilla HP",
+            "value": "-15%"
+          },
+          {
+            "stat": "Invading Generals’ Attack Speed",
+            "value": "-15%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "samuel-morse",
+      "name": "Samuel Morse",
+      "type": "Scholar",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Samuel_Morse",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Fighter HP",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Fighter HP",
+            "value": "+6%"
+          },
+          {
+            "stat": "Fighter DMG",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Fighter HP",
+            "value": "+7%"
+          },
+          {
+            "stat": "Fighter DMG",
+            "value": "+5%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+7%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Fighter HP",
+            "value": "+9%"
+          },
+          {
+            "stat": "Fighter DMG",
+            "value": "+7%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Bomber DMG & HP",
+            "value": "+7%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Fighter HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Fighter DMG",
+            "value": "+10%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bomber DMG & HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Recon Scan Bonus DMG",
+            "value": "+10%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "boudica",
+      "name": "Boudica",
+      "type": "Revolutionary",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Boudica",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Invading Bazooka HP",
+            "value": "-5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Invading Bazooka HP",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Invading Bazooka HP",
+            "value": "-14%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "All Defensive Tower Damage and HP",
+            "value": "+6%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "george-washington",
+      "name": "George Washington",
+      "type": "Revolutionary",
+      "sourceUrl": "https://dominations.fandom.com/wiki/George_Washington",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+2%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+1%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+4%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+2%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Invading Bazooka HP",
+            "value": "-11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Invading Bazooka HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Recon Scan Bonus Damage",
+            "value": "+10%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "johannes-gutenberg",
+      "name": "Johannes Gutenberg",
+      "type": "Revolutionary",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Johannes_Gutenberg",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+6%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+7%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+11%"
+          },
+          {
+            "stat": "Protect Duration",
+            "value": "+7%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "Protect Duration",
+            "value": "+9%"
+          },
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+13%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Protect Duration",
+            "value": "+15%"
+          },
+          {
+            "stat": "Heavy Tank DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+16%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "leona-vicario",
+      "name": "Leona Vicario",
+      "type": "Revolutionary",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Leona_Vicario",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Invading Fighter HP",
+            "value": "-7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Invading Fighter HP",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Fighter DMG",
+            "value": "-4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Invading Fighter HP",
+            "value": "-12%"
+          },
+          {
+            "stat": "Invading Fighter DMG",
+            "value": "-6%"
+          },
+          {
+            "stat": "Invading Bomber DMG",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Invading Fighter HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Invading Fighter DMG",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Bomber DMG",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Invading Fighter HP",
+            "value": "-20%"
+          },
+          {
+            "stat": "Invading Fighter DMG",
+            "value": "-14%"
+          },
+          {
+            "stat": "Invading Bomber DMG",
+            "value": "-14%"
+          },
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Invading Heavy Tank DMG",
+            "value": "-16%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "nancy-wake",
+      "name": "Nancy Wake",
+      "type": "Revolutionary",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Nancy_Wake",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-6%"
+          },
+          {
+            "stat": "Ranged Infantry DMG",
+            "value": "+10%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-7%"
+          },
+          {
+            "stat": "Ranged Infantry DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "MRL DMG",
+            "value": "+10%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          },
+          {
+            "stat": "Ranged Infantry DMG",
+            "value": "+15%"
+          },
+          {
+            "stat": "MRL DMG",
+            "value": "+13%"
+          },
+          {
+            "stat": "Guerrilla HP",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-12%"
+          },
+          {
+            "stat": "Ranged Infantry DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "MRL DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "Guerrilla HP",
+            "value": "+14%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-12%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "simon-bolivar",
+      "name": "Simón Bolívar",
+      "type": "Revolutionary",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Sim%C3%B3n_Bol%C3%ADvar",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Guerrilla DMG",
+            "value": "+7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Guerrilla DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Guerrilla HP",
+            "value": "+9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Guerrilla DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Guerrilla HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+8%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Guerrilla DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "Guerrilla HP",
+            "value": "+16%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+8%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Guerrilla DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Guerrilla HP",
+            "value": "+20%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+15%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+15%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+15%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "charlotte-ray",
+      "name": "Charlotte Ray",
+      "type": "Diplomat",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Charlotte_Ray",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Wall HP",
+            "value": "-6%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Wall HP",
+            "value": "-8%"
+          },
+          {
+            "stat": "Defensive Missile Silo DMG",
+            "value": "-5%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Wall HP",
+            "value": "-10%"
+          },
+          {
+            "stat": "Defensive Missile Silo DMG",
+            "value": "-7%"
+          },
+          {
+            "stat": "General DMG",
+            "value": "+7%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Wall HP",
+            "value": "-13%"
+          },
+          {
+            "stat": "Defensive Missile Silo DMG",
+            "value": "-9%"
+          },
+          {
+            "stat": "General DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "General HP",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Wall HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Defensive Missile Silo DMG",
+            "value": "-12%"
+          },
+          {
+            "stat": "General DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "General HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Air Defense DMG",
+            "value": "-20%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cleopatra",
+      "name": "Cleopatra",
+      "type": "Diplomat",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Cleopatra(Council)",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+3%"
+          },
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+6%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+6%"
+          },
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+8%"
+          },
+          {
+            "stat": "Generals' HP",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+12%"
+          },
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+11%"
+          },
+          {
+            "stat": "Generals' HP",
+            "value": "+7%"
+          },
+          {
+            "stat": "Guerrilla HP",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+20%"
+          },
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+15%"
+          },
+          {
+            "stat": "Generals' HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Guerrilla HP",
+            "value": "+15%"
+          },
+          {
+            "stat": "Invading Generals' Damage and HP",
+            "value": "-8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hatshepsut",
+      "name": "Hatshepsut",
+      "type": "Diplomat",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Hatshepsut",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+3%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+4%"
+          },
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+6%"
+          },
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+6%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+8%"
+          },
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+8%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-10%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+20%"
+          },
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+12%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "njinga-mbandi",
+      "name": "Njinga Mbandi",
+      "type": "Diplomat",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Njinga_Mbandi",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+8%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+5%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+6%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+8%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+7%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+11%"
+          },
+          {
+            "stat": "Attack Helicopter DMG & HP",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+9%"
+          },
+          {
+            "stat": "Paratrooper HP",
+            "value": "+15%"
+          },
+          {
+            "stat": "Attack Helicopter DMG & HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bazooka & Paratrooper DMG",
+            "value": "+5%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "winston-churchill",
+      "name": "Winston Churchill",
+      "type": "Diplomat",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Winston_Churchill",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "MRL Damage and HP",
+            "value": "+25%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zenobia",
+      "name": "Zenobia",
+      "type": "Diplomat",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Zenobia",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-6%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-7%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-11%"
+          },
+          {
+            "stat": "Enemy Air Defense DMG",
+            "value": "-10%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-9%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-14%"
+          },
+          {
+            "stat": "Enemy Air Defense DMG",
+            "value": "-13%"
+          },
+          {
+            "stat": "Enemy Tower HP",
+            "value": "-13%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-12%"
+          },
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-14%"
+          },
+          {
+            "stat": "Enemy Air Defense DMG",
+            "value": "-16%"
+          },
+          {
+            "stat": "Enemy Tower HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Enemy Missile Silo DMG",
+            "value": "-12%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "guan-yu",
+      "name": "Guan Yu",
+      "type": "Warrior",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Guan_Yu(Council)",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Defender HP",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defender HP",
+            "value": "+2%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defender HP",
+            "value": "+4%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-5%"
+          },
+          {
+            "stat": "Invading Guerrilla HP",
+            "value": "-4%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defender HP",
+            "value": "+7%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Guerrilla HP",
+            "value": "-8%"
+          },
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defender HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-16%"
+          },
+          {
+            "stat": "Invading Guerrilla HP",
+            "value": "-13%"
+          },
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-12%"
+          },
+          {
+            "stat": "Invading Fighter Damage and HP",
+            "value": "-8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hannibal",
+      "name": "Hannibal",
+      "type": "Warrior",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Hannibal(Council)",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+7%"
+          },
+          {
+            "stat": "MRL DMG",
+            "value": "+7%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+9%"
+          },
+          {
+            "stat": "MRL DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+7%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "MRL DMG",
+            "value": "+11%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+9%"
+          },
+          {
+            "stat": "Generals DMG",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+15%"
+          },
+          {
+            "stat": "MRL DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "Generals HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Generals DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "MRL DMG & HP",
+            "value": "+25%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lakshmibai-newalkar",
+      "name": "Lakshmibai Newalkar",
+      "type": "Warrior",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Lakshmibai_Newalkar",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-9%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-12%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-12%"
+          },
+          {
+            "stat": "Air Defense DMG",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-16%"
+          },
+          {
+            "stat": "Air Defense DMG",
+            "value": "+11%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Invading Heavy Tank HP",
+            "value": "-20%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-20%"
+          },
+          {
+            "stat": "Air Defense DMG",
+            "value": "+18%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+15%"
+          },
+          {
+            "stat": "Defensive Missile Silo DMG",
+            "value": "+12%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lu-bu",
+      "name": "Lü Bu",
+      "type": "Warrior",
+      "sourceUrl": "https://dominations.fandom.com/wiki/L%C3%BC_Bu",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-10%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-11%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-13%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+11%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-11%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-15%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+13%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-12%"
+          },
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Enemy Tower DMG",
+            "value": "-18%"
+          },
+          {
+            "stat": "Heavy Infantry DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+12%"
+          },
+          {
+            "stat": "Generals DMG",
+            "value": "+16%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "red-cloud",
+      "name": "Red Cloud",
+      "type": "Warrior",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Red_Cloud",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-3%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-5%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-14%"
+          },
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Paratrooper Damage and HP",
+            "value": "+8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shaka-zulu",
+      "name": "Shaka Zulu",
+      "type": "Warrior",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Shaka_Zulu",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+4%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Paratrooper Damage and HP",
+            "value": "+14%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tran-hung-dao",
+      "name": "Tran Hung Dao",
+      "type": "Warrior",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Tran_Hung_Dao",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-5%"
+          },
+          {
+            "stat": "Fighter Damage",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-9%"
+          },
+          {
+            "stat": "Fighter Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-14%"
+          },
+          {
+            "stat": "Fighter Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Paratrooper Damage and HP",
+            "value": "+8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "itzcoatl",
+      "name": "Itzcoatl",
+      "type": "Royalty",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Itzcoatl",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Wall Miner Movement Speed",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Wall Miner Movement Speed",
+            "value": "+7%"
+          },
+          {
+            "stat": "Mercenary HP",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Wall Miner Movement Speed",
+            "value": "+10%"
+          },
+          {
+            "stat": "Mercenary HP",
+            "value": "+5 %"
+          },
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Wall Miner Movement Speed",
+            "value": "+12%"
+          },
+          {
+            "stat": "Mercenary HP",
+            "value": "+11%"
+          },
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and HP",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Wall Miner Movement Speed",
+            "value": "+15%"
+          },
+          {
+            "stat": "Mercenary HP",
+            "value": "+18%"
+          },
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and HP",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-12%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "julius-caesar",
+      "name": "Julius Caesar",
+      "type": "Royalty",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Julius_Caesar",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "MRL DMG & HP",
+            "value": "+6%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "MRL DMG & HP",
+            "value": "+8%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+8%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "MRL DMG & HP",
+            "value": "+11%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+11%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "MRL DMG & HP",
+            "value": "+14%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+11%"
+          },
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "MRL DMG & HP",
+            "value": "+18%"
+          },
+          {
+            "stat": "Bazooka DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "Mortar Infantry DMG",
+            "value": "+18%"
+          },
+          {
+            "stat": "Bomber DMG",
+            "value": "+16%"
+          },
+          {
+            "stat": "MRL DMG & HP",
+            "value": "+18%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "leonidas",
+      "name": "Leonidas",
+      "type": "Royalty",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Leonidas(Council)",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+2%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+4%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-5%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-9%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-14%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+6%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "queen-seondeok",
+      "name": "Queen Seondeok",
+      "type": "Royalty",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Queen_Seondeok",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-6%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+7%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-7%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+9%"
+          },
+          {
+            "stat": "Defender HP",
+            "value": "+10%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+11%"
+          },
+          {
+            "stat": "Defender HP",
+            "value": "13%"
+          },
+          {
+            "stat": "Air Defense DMG & HP",
+            "value": "+6%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-12%"
+          },
+          {
+            "stat": "Defender DMG",
+            "value": "+14%"
+          },
+          {
+            "stat": "Defender HP",
+            "value": "+16%"
+          },
+          {
+            "stat": "Air Defense DMG & HP",
+            "value": "+8%"
+          },
+          {
+            "stat": "All Defensive Tower DMG & HP",
+            "value": "8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "miyamoto-musashi",
+      "name": "Miyamoto Musashi",
+      "type": "Samurai",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Miyamoto_Musashi(Council)",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+3%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+5%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Invading Machine Gun Infantry Damage",
+            "value": "-5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Invading Machine Gun Infantry Damage",
+            "value": "-10%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+15%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Invading Machine Gun Infantry Damage",
+            "value": "-16%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "All Defensive Tower Damage and HP",
+            "value": "+6%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ching-shih",
+      "name": "Ching Shih",
+      "type": "Admiral",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Ching_Shih",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "-1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "-3%"
+          },
+          {
+            "stat": "Mercenary Hitopints",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "-5%"
+          },
+          {
+            "stat": "Mercenary Hitopints",
+            "value": "+5%"
+          },
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "-3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "-9%"
+          },
+          {
+            "stat": "Mercenary Hitopints",
+            "value": "+11%"
+          },
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Mercenary Hitopints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+8%"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yi-sun-sin",
+      "name": "Yi Sun-sin",
+      "type": "Admiral",
+      "sourceUrl": "https://dominations.fandom.com/wiki/Yi_Sun-sin",
+      "warBonuses": {
+        "Common": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+2%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+4%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-5%"
+          },
+          {
+            "stat": "Invading Fighter HP",
+            "value": "-5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Fighter HP",
+            "value": "-10%"
+          },
+          {
+            "stat": "Invading Fighter Damage",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Coalition Troop Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Enemy Wall HP",
+            "value": "-14%"
+          },
+          {
+            "stat": "Invading Fighter HP",
+            "value": "-16%"
+          },
+          {
+            "stat": "Invading Fighter Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Bomber Damage and HP",
+            "value": "+7%"
+          }
+        ]
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const MAX_COUNCILORS = 7;
+      const STORAGE_KEY = "dominations-war-council-helper-selection-v1";
+      const SHARE_PREFIX = "DWC1.";
+      const FALLBACK_RARITIES = ["Common", "Uncommon", "Rare", "Epic", "Legendary"];
+
+      const data = parseCatalog();
+      const rarities = normalizeRarities(data.rarities);
+      const councilors = normalizeCouncilors(data.councilors);
+      const councilorById = new Map(councilors.map((councilor) => [councilor.id, councilor]));
+      let selections = loadSelections();
+      let previouslyFocused = null;
+
+      const searchInput = document.getElementById("search");
+      const typeFilter = document.getElementById("type-filter");
+      const displayRarity = document.getElementById("display-rarity");
+      const catalogSummary = document.getElementById("catalog-summary");
+      const catalogResults = document.getElementById("catalog-results");
+      const selectedCount = document.getElementById("selected-count");
+      const selectedCouncilors = document.getElementById("selected-councilors");
+      const activeBonuses = document.getElementById("active-bonuses");
+      const councilStatus = document.getElementById("council-status");
+      const resetCouncilButton = document.getElementById("reset-council");
+      const setupString = document.getElementById("setup-string");
+      const copySetupButton = document.getElementById("copy-setup");
+      const loadSetupButton = document.getElementById("load-setup");
+      const shareStatus = document.getElementById("share-status");
+      const helpButton = document.getElementById("help-button");
+      const helpOverlay = document.getElementById("help-overlay");
+      const helpDialog = document.getElementById("help-dialog");
+      const closeHelpButton = document.getElementById("close-help");
+
+      populateFilters();
+      bindEvents();
+      renderAll();
+
+      function parseCatalog() {
+        try {
+          const parsed = JSON.parse(document.getElementById("councilor-data").textContent);
+          return parsed && typeof parsed === "object" ? parsed : {};
+        } catch (error) {
+          return {};
+        }
+      }
+
+      function normalizeRarities(value) {
+        if (!Array.isArray(value)) return FALLBACK_RARITIES;
+        const cleaned = [...new Set(value.filter((rarity) => typeof rarity === "string" && rarity.trim()).map((rarity) => rarity.trim()))];
+        return cleaned.length ? cleaned : FALLBACK_RARITIES;
+      }
+
+      function normalizeCouncilors(value) {
+        if (!Array.isArray(value)) return [];
+        const seen = new Set();
+        return value.filter((councilor) => {
+          if (!councilor || typeof councilor !== "object") return false;
+          if (typeof councilor.id !== "string" || !councilor.id || seen.has(councilor.id)) return false;
+          if (typeof councilor.name !== "string" || typeof councilor.type !== "string") return false;
+          if (!councilor.warBonuses || typeof councilor.warBonuses !== "object") return false;
+          seen.add(councilor.id);
+          return true;
+        }).slice().sort((left, right) => left.name.localeCompare(right.name));
+      }
+
+      function bonusesFor(councilor, rarity) {
+        const bonuses = councilor.warBonuses[rarity];
+        if (!Array.isArray(bonuses)) return [];
+        return bonuses.filter((bonus) => bonus && typeof bonus.stat === "string" && typeof bonus.value === "string");
+      }
+
+      function bonusText(bonus) {
+        return [bonus.stat.trim(), bonus.value.trim()].filter(Boolean).join(" ");
+      }
+
+      function populateFilters() {
+        rarities.forEach((rarity) => {
+          const option = document.createElement("option");
+          option.value = rarity;
+          option.textContent = rarity;
+          displayRarity.append(option);
+        });
+        displayRarity.value = rarities.includes("Legendary") ? "Legendary" : rarities[rarities.length - 1];
+
+        [...new Set(councilors.map((councilor) => councilor.type))]
+          .sort((left, right) => left.localeCompare(right))
+          .forEach((type) => {
+            const option = document.createElement("option");
+            option.value = type;
+            option.textContent = type;
+            typeFilter.append(option);
+          });
+      }
+
+      function bindEvents() {
+        searchInput.addEventListener("input", renderCatalog);
+        typeFilter.addEventListener("change", renderCatalog);
+        displayRarity.addEventListener("change", renderCatalog);
+        resetCouncilButton.addEventListener("click", resetCouncil);
+        copySetupButton.addEventListener("click", copySetup);
+        loadSetupButton.addEventListener("click", loadSetup);
+        helpButton.addEventListener("click", openHelp);
+        closeHelpButton.addEventListener("click", closeHelp);
+        helpOverlay.addEventListener("click", (event) => {
+          if (event.target === helpOverlay) closeHelp();
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !helpOverlay.hidden) closeHelp();
+          if (event.key === "Tab" && !helpOverlay.hidden) trapHelpFocus(event);
+        });
+      }
+
+      function renderAll() {
+        renderCatalog();
+        renderSelections();
+        renderActiveBonuses();
+      }
+
+      function renderCatalog() {
+        catalogResults.replaceChildren();
+        const query = searchInput.value.trim();
+        const foldedQuery = query.toLowerCase();
+        const selectedIds = new Set(selections.map((selection) => selection.id));
+        const rarity = displayRarity.value || rarities[0];
+        const requestedType = typeFilter.value;
+
+        const matches = councilors.filter((councilor) => {
+          if (selectedIds.has(councilor.id)) return false;
+          if (requestedType && councilor.type !== requestedType) return false;
+          if (!foldedQuery) return true;
+          const searchable = [
+            councilor.name,
+            councilor.type,
+            ...bonusesFor(councilor, rarity).map(bonusText)
+          ].join("\n").toLowerCase();
+          return searchable.includes(foldedQuery);
+        });
+
+        if (!councilors.length) {
+          catalogSummary.textContent = "No councilor data is embedded in this page yet.";
+          return;
+        }
+
+        catalogSummary.textContent = `${matches.length} of ${councilors.length - selectedIds.size} available councilors shown at ${rarity} rarity.`;
+
+        if (!matches.length) {
+          const empty = document.createElement("p");
+          empty.className = "muted";
+          empty.textContent = "No available councilors match these filters.";
+          catalogResults.append(empty);
+          return;
+        }
+
+        matches.forEach((councilor) => catalogResults.append(createCatalogCard(councilor, rarity, query)));
+      }
+
+      function createCatalogCard(councilor, rarity, query) {
+        const card = document.createElement("article");
+        card.className = "councilor-card";
+
+        const heading = document.createElement("div");
+        heading.className = "card-heading";
+        const title = document.createElement("h3");
+        if (typeof councilor.sourceUrl === "string" && councilor.sourceUrl) {
+          const link = document.createElement("a");
+          link.href = councilor.sourceUrl;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          appendHighlighted(link, councilor.name, query);
+          title.append(link);
+        } else {
+          appendHighlighted(title, councilor.name, query);
+        }
+
+        const addButton = document.createElement("button");
+        addButton.type = "button";
+        addButton.className = "add-councilor";
+        addButton.textContent = "Add";
+        addButton.setAttribute("aria-label", `Add ${councilor.name} to the council`);
+        if (selections.length >= MAX_COUNCILORS) addButton.setAttribute("aria-disabled", "true");
+        addButton.addEventListener("click", () => addCouncilor(councilor.id));
+        heading.append(title, addButton);
+
+        const type = document.createElement("div");
+        type.className = "type-badge";
+        appendHighlighted(type, councilor.type, query);
+
+        const rarityLabel = document.createElement("p");
+        rarityLabel.className = "rarity-label";
+        rarityLabel.textContent = `${rarity} War bonuses`;
+
+        card.append(heading, type, rarityLabel, createBonusDisplay(bonusesFor(councilor, rarity), query));
+        return card;
+      }
+
+      function createBonusDisplay(bonuses, query = "") {
+        if (!bonuses.length) {
+          const empty = document.createElement("p");
+          empty.className = "no-bonuses";
+          empty.textContent = "No War bonuses listed for this rarity.";
+          return empty;
+        }
+
+        const list = document.createElement("ul");
+        list.className = "bonus-list";
+        bonuses.forEach((bonus) => {
+          const item = document.createElement("li");
+          appendHighlighted(item, bonusText(bonus), query);
+          list.append(item);
+        });
+        return list;
+      }
+
+      function appendHighlighted(element, text, query) {
+        const source = String(text);
+        const needle = query.trim();
+        if (!needle) {
+          element.append(document.createTextNode(source));
+          return;
+        }
+
+        const foldedSource = source.toLowerCase();
+        const foldedNeedle = needle.toLowerCase();
+        let cursor = 0;
+        let matchAt = foldedSource.indexOf(foldedNeedle);
+        while (matchAt !== -1) {
+          element.append(document.createTextNode(source.slice(cursor, matchAt)));
+          const mark = document.createElement("mark");
+          mark.textContent = source.slice(matchAt, matchAt + needle.length);
+          element.append(mark);
+          cursor = matchAt + needle.length;
+          matchAt = foldedSource.indexOf(foldedNeedle, cursor);
+        }
+        element.append(document.createTextNode(source.slice(cursor)));
+      }
+
+      function addCouncilor(id) {
+        if (selections.some((selection) => selection.id === id)) {
+          setCouncilStatus("That councilor is already selected.");
+          return;
+        }
+        if (selections.length >= MAX_COUNCILORS) {
+          setCouncilStatus("A War Council can contain no more than seven councilors.");
+          return;
+        }
+        if (!councilorById.has(id)) return;
+        selections.push({ id, rarity: displayRarity.value || rarities[0] });
+        const saved = persistSelections();
+        setCouncilStatus(saved
+          ? `${councilorById.get(id).name} added.`
+          : `${councilorById.get(id).name} added, but this browser did not allow it to be saved locally.`);
+        renderAll();
+      }
+
+      function removeCouncilor(id) {
+        const councilor = councilorById.get(id);
+        selections = selections.filter((selection) => selection.id !== id);
+        const saved = persistSelections();
+        const message = councilor ? `${councilor.name} removed.` : "Councilor removed.";
+        setCouncilStatus(saved
+          ? message
+          : `${message} This browser did not allow the change to be saved locally.`);
+        renderAll();
+      }
+
+      function changeSelectionRarity(id, rarity) {
+        if (!rarities.includes(rarity)) return;
+        const selection = selections.find((item) => item.id === id);
+        if (!selection) return;
+        selection.rarity = rarity;
+        if (!persistSelections()) {
+          setCouncilStatus("Rarity changed, but this browser did not allow it to be saved locally.");
+        }
+        renderSelections();
+        renderActiveBonuses();
+      }
+
+      function renderSelections() {
+        selectedCouncilors.replaceChildren();
+        selectedCount.textContent = String(selections.length);
+        resetCouncilButton.disabled = selections.length === 0;
+
+        if (!selections.length) {
+          const empty = document.createElement("p");
+          empty.className = "muted";
+          empty.textContent = "No councilors selected yet.";
+          selectedCouncilors.append(empty);
+        }
+
+        selections.forEach((selection) => {
+          const councilor = councilorById.get(selection.id);
+          if (!councilor) return;
+
+          const card = document.createElement("article");
+          card.className = "councilor-card selected-card";
+          const heading = document.createElement("div");
+          heading.className = "card-heading";
+          const title = document.createElement("h3");
+          title.textContent = councilor.name;
+          const removeButton = document.createElement("button");
+          removeButton.type = "button";
+          removeButton.className = "remove-councilor";
+          removeButton.textContent = "Remove";
+          removeButton.setAttribute("aria-label", `Remove ${councilor.name} from the council`);
+          removeButton.addEventListener("click", () => removeCouncilor(councilor.id));
+          heading.append(title, removeButton);
+
+          const type = document.createElement("div");
+          type.className = "type-badge";
+          type.textContent = councilor.type;
+
+          const rarityId = `selected-rarity-${safeDomId(councilor.id)}`;
+          const label = document.createElement("label");
+          label.htmlFor = rarityId;
+          label.textContent = "Rarity";
+          const selector = document.createElement("select");
+          selector.id = rarityId;
+          rarities.forEach((rarity) => {
+            const option = document.createElement("option");
+            option.value = rarity;
+            option.textContent = rarity;
+            selector.append(option);
+          });
+          selector.value = selection.rarity;
+          selector.addEventListener("change", () => changeSelectionRarity(councilor.id, selector.value));
+
+          card.append(heading, type, label, selector, createBonusDisplay(bonusesFor(councilor, selection.rarity)));
+          selectedCouncilors.append(card);
+        });
+      }
+
+      function safeDomId(value) {
+        return value.replace(/[^a-zA-Z0-9_-]/g, "-");
+      }
+
+      function renderActiveBonuses() {
+        const combined = [];
+        selections.forEach((selection) => {
+          const councilor = councilorById.get(selection.id);
+          if (councilor) bonusesFor(councilor, selection.rarity).forEach((bonus) => combined.push(bonusText(bonus)));
+        });
+        combined.sort((left, right) => left.localeCompare(right, undefined, { sensitivity: "base" }));
+        activeBonuses.replaceChildren();
+        if (!combined.length) {
+          const empty = document.createElement("li");
+          empty.className = "muted";
+          empty.textContent = "No active War bonuses yet.";
+          activeBonuses.append(empty);
+          return;
+        }
+        combined.forEach((text) => {
+          const item = document.createElement("li");
+          item.textContent = text;
+          activeBonuses.append(item);
+        });
+      }
+
+      function setCouncilStatus(message) {
+        councilStatus.textContent = message;
+      }
+
+      function resetCouncil() {
+        if (!selections.length) return;
+        selections = [];
+        const saved = persistSelections();
+        setCouncilStatus(saved
+          ? "The selected council was reset."
+          : "The council was reset, but this browser did not allow the change to be saved locally.");
+        setShareStatus("");
+        renderAll();
+      }
+
+      function persistSelections() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, selections }));
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
+
+      function loadSelections() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+          return validateSelectionPayload(saved).selections;
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function validateSelectionPayload(payload) {
+        if (!payload || typeof payload !== "object" || payload.version !== 1 || !Array.isArray(payload.selections)) {
+          throw new Error("This setup uses an unsupported format.");
+        }
+        if (payload.selections.length > MAX_COUNCILORS) {
+          throw new Error("A setup cannot contain more than seven councilors.");
+        }
+
+        const seen = new Set();
+        const validated = payload.selections.map((selection) => {
+          if (!selection || typeof selection !== "object" || typeof selection.id !== "string" || typeof selection.rarity !== "string") {
+            throw new Error("The setup contains an invalid councilor selection.");
+          }
+          if (!councilorById.has(selection.id)) throw new Error(`Unknown councilor: ${selection.id}`);
+          if (seen.has(selection.id)) throw new Error("The setup contains the same councilor more than once.");
+          if (!rarities.includes(selection.rarity)) throw new Error(`Unknown rarity: ${selection.rarity}`);
+          seen.add(selection.id);
+          return { id: selection.id, rarity: selection.rarity };
+        });
+        return { version: 1, selections: validated };
+      }
+
+      function serializeSetup() {
+        const json = JSON.stringify({ version: 1, selections });
+        const bytes = new TextEncoder().encode(json);
+        let binary = "";
+        bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
+        return SHARE_PREFIX + btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+      }
+
+      function deserializeSetup(value) {
+        const input = value.trim();
+        if (!input.startsWith(SHARE_PREFIX)) throw new Error("This is not a DWC1 setup string.");
+        const encoded = input.slice(SHARE_PREFIX.length);
+        if (!encoded || !/^[A-Za-z0-9_-]+$/.test(encoded)) throw new Error("The setup string is malformed.");
+        const padded = encoded.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(encoded.length / 4) * 4, "=");
+        let binary;
+        try {
+          binary = atob(padded);
+        } catch (error) {
+          throw new Error("The setup string is malformed.");
+        }
+        const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+        let payload;
+        try {
+          payload = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+        } catch (error) {
+          throw new Error("The setup string does not contain valid data.");
+        }
+        return validateSelectionPayload(payload);
+      }
+
+      async function copySetup() {
+        const serialized = serializeSetup();
+        setupString.value = serialized;
+        setupString.select();
+        try {
+          await navigator.clipboard.writeText(serialized);
+          setShareStatus("Setup string copied to the clipboard.");
+        } catch (error) {
+          try {
+            const copied = document.execCommand("copy");
+            setShareStatus(copied ? "Setup string copied to the clipboard." : "Setup string created; copy it from the box.");
+          } catch (fallbackError) {
+            setShareStatus("Setup string created; copy it from the box.");
+          }
+        }
+      }
+
+      function loadSetup() {
+        try {
+          const payload = deserializeSetup(setupString.value);
+          selections = payload.selections;
+          const saved = persistSelections();
+          setCouncilStatus(saved
+            ? "Shared council loaded."
+            : "Shared council loaded, but this browser did not allow it to be saved locally.");
+          setShareStatus(
+            `Loaded ${selections.length} councilor${selections.length === 1 ? "" : "s"}${saved ? "." : "; local saving is unavailable."}`
+          );
+          renderAll();
+        } catch (error) {
+          setShareStatus(error instanceof Error ? error.message : "The setup could not be loaded.");
+        }
+      }
+
+      function setShareStatus(message) {
+        shareStatus.textContent = message;
+      }
+
+      function openHelp() {
+        previouslyFocused = document.activeElement;
+        helpOverlay.hidden = false;
+        closeHelpButton.focus();
+      }
+
+      function trapHelpFocus(event) {
+        const focusable = [...helpDialog.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )];
+        if (!focusable.length) {
+          event.preventDefault();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const outsideDialog = !helpDialog.contains(document.activeElement);
+        if (event.shiftKey && (document.activeElement === first || outsideDialog)) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && (document.activeElement === last || outsideDialog)) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      function closeHelp() {
+        helpOverlay.hidden = true;
+        if (previouslyFocused && typeof previouslyFocused.focus === "function") previouslyFocused.focus();
+      }
+    })();
+  </script>
+</body>
+</html>
