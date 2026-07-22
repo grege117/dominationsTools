@@ -75,6 +75,24 @@ python3 crawl_councilors.py
 
 The crawler updates `councilors.json` and the embedded data in `councilor-helper.html` together.
 
+## Data consistency audit
+
+`stat-label-inconsistencies.html` reports live wiki labels that abbreviate, misspell, or inconsistently capitalize the words `Hitpoints` and `Damage`. Each finding includes a proposed label and a link to the affected artifact or councilor page. Missing or structurally incomplete wiki pages are listed separately as crawl warnings.
+
+Regenerate the standalone report with:
+
+```bash
+python3 generate_label_inconsistency_report.py
+```
+
+Run its network-free regression tests with:
+
+```bash
+python3 -m unittest -v test_label_inconsistency_report.py
+```
+
+The audit reads the wiki directly and does not modify either helper or its JSON data. When GitHub Pages is enabled, the report is available at https://grege117.github.io/dominationsTools/stat-label-inconsistencies.html.
+
 ## Adding tools
 
 Future tools should remain standalone HTML pages where practical, use no external runtime dependencies, and have a clear link or entry added here. Shared data files and small standard-library helper scripts can live at the repository root until the collection needs a more structured layout.

@@ -72,7 +72,12 @@ def api_request(
                     f"{error.get('info', error)}"
                 )
             return payload
-        except (OSError, urllib.error.URLError, json.JSONDecodeError) as exc:
+        except (
+            CrawlError,
+            OSError,
+            urllib.error.URLError,
+            json.JSONDecodeError,
+        ) as exc:
             last_error = exc
             if attempt >= retries:
                 break
