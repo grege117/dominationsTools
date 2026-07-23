@@ -61,9 +61,17 @@ With GitHub Pages enabled for this repository, the hosted tools are available at
 
 ## Data
 
-Artifact data is primarily sourced from the [DomiNations Legendary War Artifacts wiki page](https://dominations.fandom.com/wiki/Legendary_War_Artifacts#List_of_Legendary_War_Artifacts), with individual artifact pages used when the index does not provide bonus rows. Newer artifacts may need to be added manually until that index is updated.
+Artifact names are sourced from the [DomiNations Legendary War Artifacts wiki page](https://dominations.fandom.com/wiki/Legendary_War_Artifacts#List_of_Legendary_War_Artifacts). Bonuses are read from the Statistic table on each linked artifact page. Linked artifacts whose page or bonus data is unavailable remain in the catalog with an `unavailable` status.
 
 When updating data, keep `legendary-war-artifacts.json` and the JSON embedded in `legendary-artifact-finder.html` identical.
+
+Regenerate and validate the Legendary War Artifact data with:
+
+```bash
+python3 crawl_artifacts.py
+```
+
+The crawler updates `legendary-war-artifacts.json` and the embedded data in `legendary-artifact-finder.html` together. Use `--skip-html` to generate only the reusable JSON file.
 
 Councilor names and types are sourced from the [DomiNations Councilors list](https://dominations.fandom.com/wiki/Councilors#Councilors_List). War bonuses are read from the War Chamber table on each councilor's page and expanded into the complete effective bonus list for every rarity.
 
