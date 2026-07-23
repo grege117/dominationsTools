@@ -4,32 +4,35 @@ A small, dependency-free collection of browser tools for DomiNations players. Ea
 
 ## Current tools
 
-### Legendary War Artifact Helper
+### Legendary Artifact Helper
 
-`legendary-artifact-finder.html` helps players search Legendary War Artifact bonuses and build a personal artifact setup.
+`legendary-artifact-finder.html` helps players search War or Multiplayer Legendary Artifact bonuses and build a personal setup for either collection.
 
 It includes:
 
 - Case-insensitive bonus tags with highlighted matches.
-- An Owned Artifacts column stored in the browser's local storage.
+- Separate Owned Artifacts columns and saved setups for War and Multiplayer collections.
 - Up to four fully Active artifacts, plus one selected bonus from each other owned artifact.
 - An alphabetized Active bonuses list.
-- Copy/Load sharing strings for transferring a setup between users or browsers.
+- Copy/Load sharing strings that automatically switch to the matching collection.
+- Read-only Copy Link URLs that show a shared setup without changing the visitor's local configuration.
 - Built-in Help instructions.
 
-The page is self-contained and embeds its artifact data, so it does not require a web server. `legendary-war-artifacts.json` is the matching reusable data file.
+The page embeds both catalogs for direct-file use. When served, it refreshes the selected catalog from `legendary-war-artifacts.json` or `legendary-multiplayer-artifacts.json` and falls back to its embedded copy if that request fails.
 
-### War Council Helper
+### Council Helper
 
-`councilor-helper.html` helps players search War Chamber councilor bonuses and assemble a seven-seat War Council.
+`councilor-helper.html` helps players search both War Chamber and Primary Chamber (Multiplayer) councilor bonuses and assemble a seven-seat council for either mode.
 
 It includes:
 
-- Case-insensitive search across councilor names, types, and War bonuses.
+- A War/Multiplayer toggle with independent seven-councilor selections for each mode.
+- Case-insensitive search across councilor names, types, and the selected mode's bonuses.
 - Type and displayed-rarity controls.
 - A seven-councilor setup with an independent rarity for each seat.
-- An alphabetized list of all active War bonuses.
-- Browser-local persistence and Copy/Load sharing strings.
+- An alphabetized list of all active bonuses for the selected mode.
+- Browser-local persistence and Copy/Load sharing strings; shared setups include their mode.
+- Read-only Copy Link URLs that preserve the visitor's local Council setup and show rarity-colored selected Councilors.
 - Built-in Help instructions.
 
 The page is also self-contained. Its embedded data matches the reusable `councilors.json` file.
@@ -61,9 +64,9 @@ With GitHub Pages enabled for this repository, the hosted tools are available at
 
 ## Data
 
-Artifact names are sourced from the [DomiNations Legendary War Artifacts wiki page](https://dominations.fandom.com/wiki/Legendary_War_Artifacts#List_of_Legendary_War_Artifacts). Bonuses are read from the Statistic table on each linked artifact page. Linked artifacts whose page or bonus data is unavailable remain in the catalog with an `unavailable` status.
+War artifact names are sourced from the [DomiNations Legendary War Artifacts wiki page](https://dominations.fandom.com/wiki/Legendary_War_Artifacts#List_of_Legendary_War_Artifacts). Multiplayer artifact names are sourced from the [DomiNations Legendary Artifacts wiki page](https://dominations.fandom.com/wiki/Legendary_Artifacts). Bonuses are read from the Statistic table on each linked artifact page. Linked artifacts whose page or bonus data is unavailable remain in the catalog with an `unavailable` status.
 
-When updating data, keep `legendary-war-artifacts.json` and the JSON embedded in `legendary-artifact-finder.html` identical.
+When updating data, keep each external artifact JSON file and its matching embedded JSON block in `legendary-artifact-finder.html` identical.
 
 Regenerate and validate the Legendary War Artifact data with:
 
@@ -73,7 +76,15 @@ python3 crawl_artifacts.py
 
 The crawler updates `legendary-war-artifacts.json` and the embedded data in `legendary-artifact-finder.html` together. Use `--skip-html` to generate only the reusable JSON file.
 
-Councilor names and types are sourced from the [DomiNations Councilors list](https://dominations.fandom.com/wiki/Councilors#Councilors_List). War bonuses are read from the War Chamber table on each councilor's page and expanded into the complete effective bonus list for every rarity.
+Regenerate Multiplayer Legendary Artifact data with:
+
+```bash
+python3 crawl_multiplayer_artifacts.py
+```
+
+The Multiplayer crawler updates `legendary-multiplayer-artifacts.json` and its embedded page data together.
+
+Councilor names and types are sourced from the [DomiNations Councilors list](https://dominations.fandom.com/wiki/Councilors#Councilors_List). War and Multiplayer bonuses are read from the War Chamber and Primary Chamber tables on each councilor's page and expanded into the complete effective bonus list for every rarity.
 
 Regenerate and validate the Councilor data with:
 

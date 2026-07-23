@@ -59,7 +59,7 @@
     {"name":"The Art of War","status":"available","bonuses":["Heavy Tank Hitpoints +9%","Heavy Tank Damage +9%","Invading Generals' Hitpoints -9%","Invading Generals' Damage -9%","Generals' Hitpoints and Damage +9%"]},
     {"name":"The White Death's War Kit","status":"available","bonuses":["Sniper Tower Damage +6%","Sniper Tower Hitpoints +6%","Enemy Defender Spawn Time +6%","All Defensive Towers Hitpoints +3%","All Defensive Towers Damage +3%"]},
     {"name":"Tizona Sword","status":"available","bonuses":["Enemy Defender Spawn Time +6%","Heavy Cavalry Damage +6%","Heavy Cavalry Hitpoints +3%","Ranged Siege Damage +6%","Ranged Siege Hitpoints +3%"]},
-    {"name":"Trundholm Sun Chariot","status":"unavailable","bonuses":[]},
+    {"name":"Trundholm Sun Chariot","status":"available","bonuses":["Tower Damage +6%","Air Defense Damage +6%","Invading Bomber Hitpoints -7%","Invading Transport Hitpoints -7%","All Defensive Towers Damage +6%"]},
     {"name":"Vespa 150 TAP","status":"available","bonuses":["Machine Gun Infantry Damage +7%","Machine Gun Infantry Hitpoints +7%","Ranged Siege Damage +7%","Ranged Siege Hitpoints +7%","Factory Troop Damage +1%"]},
     {"name":"Vz-9 Avrocar","status":"available","bonuses":["Invading Fighter Damage -6%","Air Defense Damage +6%","Invading Bomber Damage -6%","Invading Fighter Hitpoints -6%","Invading Bomber Hitpoints -6%"]},
     {"name":"Welrod MkII","status":"available","bonuses":["All Enemy Defensive Towers Hitpoints -8%","Enemy Defender Spawn Time +8%","Guerrilla Damage +6%","Guerrilla Hitpoints +6%","Airstrip Troop Damage +6%"]},

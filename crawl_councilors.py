@@ -3,8 +3,8 @@
 
 The crawler uses only Python's standard library and the public MediaWiki API.
 It discovers the current Councilor list and types from the Councilors page,
-reads each linked page's War Chamber Seats table, writes the reusable JSON,
-and synchronizes the standalone page's embedded copy.
+reads each linked page's Primary and War Chamber Seats tables, writes the
+reusable JSON, and synchronizes the standalone page's embedded copy.
 """
 
 from __future__ import annotations
@@ -288,23 +288,27 @@ def parse_wikitable(table: str, page_name: str) -> list[list[str]]:
     return rows
 
 
-def extract_war_bonuses(wikitext: str, page_name: str) -> dict[str, list[dict[str, str]]]:
+def extract_council_bonuses(
+    wikitext: str, page_name: str, chamber_name: str
+) -> dict[str, list[dict[str, str]]]:
+    """Extract one Council chamber's rarity table from a Councilor page."""
+
     heading = re.search(
-        r"^===\s*War Chamber Seats\s*===\s*$",
+        rf"^===\s*{re.escape(chamber_name)} Seats\s*===\s*$",
         wikitext,
         flags=re.IGNORECASE | re.MULTILINE,
     )
     if not heading:
-        raise CrawlError(f"{page_name}: no recognizable War Chamber Seats heading")
+        raise CrawlError(f"{page_name}: no recognizable {chamber_name} Seats heading")
 
     remainder = wikitext[heading.end() :]
     table_start = remainder.find("{|")
     next_heading = re.search(r"^={2,3}[^=].*?={2,3}\s*$", remainder, re.MULTILINE)
     if table_start < 0 or (next_heading and next_heading.start() < table_start):
-        raise CrawlError(f"{page_name}: no table follows War Chamber Seats heading")
+        raise CrawlError(f"{page_name}: no table follows {chamber_name} Seats heading")
     table_end = remainder.find("|}", table_start)
     if table_end < 0:
-        raise CrawlError(f"{page_name}: War Chamber table has no closing marker")
+        raise CrawlError(f"{page_name}: {chamber_name} table has no closing marker")
 
     rows = parse_wikitable(remainder[table_start : table_end + 2], page_name)
     header = rows[0]
@@ -313,7 +317,7 @@ def extract_war_bonuses(wikitext: str, page_name: str) -> dict[str, list[dict[st
         cell.casefold() for cell in expected_header
     ]:
         raise CrawlError(
-            f"{page_name}: unexpected War Chamber table header {header!r}; "
+            f"{page_name}: unexpected {chamber_name} table header {header!r}; "
             f"expected {expected_header!r}"
         )
 
@@ -321,12 +325,12 @@ def extract_war_bonuses(wikitext: str, page_name: str) -> dict[str, list[dict[st
     for row_number, row in enumerate(rows[1:], start=1):
         if len(row) != len(expected_header):
             raise CrawlError(
-                f"{page_name}: War Chamber row {row_number} has {len(row)} cells, "
+                f"{page_name}: {chamber_name} row {row_number} has {len(row)} cells, "
                 f"expected {len(expected_header)}: {row!r}"
             )
         stat = row[0]
         if not stat:
-            raise CrawlError(f"{page_name}: War Chamber row {row_number} has no benefit")
+            raise CrawlError(f"{page_name}: {chamber_name} row {row_number} has no benefit")
 
         seen_value = False
         for rarity, value in zip(RARITIES, row[1:]):
@@ -343,8 +347,20 @@ def extract_war_bonuses(wikitext: str, page_name: str) -> dict[str, list[dict[st
 
     for rarity, rarity_bonuses in bonuses.items():
         if not rarity_bonuses:
-            raise CrawlError(f"{page_name}: no effective {rarity} War bonuses found")
+            raise CrawlError(
+                f"{page_name}: no effective {rarity} {chamber_name} bonuses found"
+            )
     return bonuses
+
+
+def extract_war_bonuses(wikitext: str, page_name: str) -> dict[str, list[dict[str, str]]]:
+    return extract_council_bonuses(wikitext, page_name, "War Chamber")
+
+
+def extract_multiplayer_bonuses(
+    wikitext: str, page_name: str
+) -> dict[str, list[dict[str, str]]]:
+    return extract_council_bonuses(wikitext, page_name, "Primary Chamber")
 
 
 def slugify(name: str) -> str:
@@ -388,25 +404,32 @@ def validate_catalog(catalog: dict[str, Any]) -> None:
         for field in ("id", "name", "type", "sourceUrl"):
             if not isinstance(item.get(field), str) or not item[field].strip():
                 raise CrawlError(f"Councilor has an invalid {field}: {item!r}")
-        war_bonuses = item.get("warBonuses")
-        if not isinstance(war_bonuses, dict) or list(war_bonuses) != list(RARITIES):
-            raise CrawlError(f"{item['name']}: invalid rarity keys")
-        for rarity in RARITIES:
-            bonuses = war_bonuses[rarity]
-            if not isinstance(bonuses, list) or not bonuses:
-                raise CrawlError(f"{item['name']}: no {rarity} War bonuses")
-            for bonus in bonuses:
-                if set(bonus) != {"stat", "value"}:
-                    raise CrawlError(
-                        f"{item['name']}: malformed {rarity} bonus {bonus!r}"
-                    )
-                if not all(
-                    isinstance(bonus[key], str) and bonus[key].strip()
-                    for key in ("stat", "value")
-                ):
-                    raise CrawlError(
-                        f"{item['name']}: empty {rarity} bonus value {bonus!r}"
-                    )
+        for field, label in (
+            ("warBonuses", "War"),
+            ("multiplayerBonuses", "Multiplayer"),
+        ):
+            bonuses_by_rarity = item.get(field)
+            if (
+                not isinstance(bonuses_by_rarity, dict)
+                or list(bonuses_by_rarity) != list(RARITIES)
+            ):
+                raise CrawlError(f"{item['name']}: invalid {label} rarity keys")
+            for rarity in RARITIES:
+                bonuses = bonuses_by_rarity[rarity]
+                if not isinstance(bonuses, list) or not bonuses:
+                    raise CrawlError(f"{item['name']}: no {rarity} {label} bonuses")
+                for bonus in bonuses:
+                    if set(bonus) != {"stat", "value"}:
+                        raise CrawlError(
+                            f"{item['name']}: malformed {rarity} bonus {bonus!r}"
+                        )
+                    if not all(
+                        isinstance(bonus[key], str) and bonus[key].strip()
+                        for key in ("stat", "value")
+                    ):
+                        raise CrawlError(
+                            f"{item['name']}: empty {rarity} bonus value {bonus!r}"
+                        )
 
 
 def serialize_catalog(catalog: dict[str, Any]) -> str:
@@ -450,6 +473,9 @@ def build_catalog(*, timeout: float, retries: int, batch_size: int) -> dict[str,
                 "type": item["type"],
                 "sourceUrl": source_url(item["target"]),
                 "warBonuses": extract_war_bonuses(
+                    page_texts[item["target"]], item["name"]
+                ),
+                "multiplayerBonuses": extract_multiplayer_bonuses(
                     page_texts[item["target"]], item["name"]
                 ),
             }

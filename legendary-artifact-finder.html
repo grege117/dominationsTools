@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dominations Legendary War Artifact Helper</title>
+  <title>Dominations Legendary Artifact Helper</title>
   <style>
     :root { color-scheme: dark; font-family: system-ui, sans-serif; }
     body { margin: 0; background: #12171d; color: #edf2f7; }
@@ -20,6 +20,10 @@
     .active-artifact { display: block; color: #8fc6ef; font-weight: 700; }
     h1 { margin: 0 0 .25rem; font-size: clamp(1.55rem, 4vw, 2.25rem); }
     .page-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+    .collection-picker { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin: .8rem 0; }
+    .collection-picker button { background: #526273; color: #edf2f7; padding: .45rem .75rem; }
+    .collection-picker button.selected { background: #48bb78; color: #071d10; }
+    #data-status { color: #b8c5d1; font-size: .85rem; }
     #help-button { background: #526273; color: #edf2f7; }
     .intro { color: #b8c5d1; margin-top: 0; }
     label { display: block; font-weight: 700; margin: 1.5rem 0 .45rem; }
@@ -51,6 +55,11 @@
     .share-actions { display: flex; gap: .5rem; }
     .share-actions button { flex: 1; padding: .45rem; }
     #share-status { min-height: 1.25rem; margin: .5rem 0 0; color: #b8c5d1; font-size: .9rem; }
+    #shared-view-message { margin: .8rem 0 0; color: #b8c5d1; }
+    #shared-view-message a { color: #8fc6ef; font-weight: 700; }
+    body.shared-view #share-panel, body.shared-view #reset-owned, body.shared-view #help-button,
+    body.shared-view .collection-picker, body.shared-view .finder > label, body.shared-view .search-row,
+    body.shared-view #tags, body.shared-view #reset-tags, body.shared-view #summary, body.shared-view #results { display: none; }
     #help-overlay[hidden] { display: none; }
     #help-overlay { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; padding: 1rem; background: rgb(0 0 0 / 70%); }
     #help-dialog { width: min(680px, 100%); max-height: min(760px, 90vh); overflow: auto; border: 1px solid #526273; border-radius: .65rem; background: #1c2530; padding: 1.25rem; box-shadow: 0 1rem 3rem rgb(0 0 0 / 50%); }
@@ -82,22 +91,30 @@
           <textarea id="setup-string" spellcheck="false" placeholder="Copy a setup string here to load it"></textarea>
           <div class="share-actions">
             <button id="copy-setup" type="button">Copy</button>
+            <button id="copy-link" type="button">Copy Link</button>
             <button id="load-setup" type="button">Load</button>
           </div>
           <p id="share-status" aria-live="polite"></p>
         </section>
       </aside>
       <aside id="owned-panel">
-        <h2>Owned Artifacts</h2>
+        <h2 id="owned-title">Owned War Artifacts</h2>
         <div id="owned-results"></div>
         <button id="reset-owned" type="button" disabled>Reset owned</button>
       </aside>
       <section class="finder">
         <div class="page-heading">
-          <h1>Dominations Legendary War Artifact Helper</h1>
+          <h1 id="page-title">Dominations Legendary War Artifact Helper</h1>
           <button id="help-button" type="button">Help</button>
         </div>
         <p class="intro">Add one or more bonus-text tags. Matching ignores letter case.</p>
+        <p id="shared-view-message" hidden>Viewing a shared setup. <a id="edit-my-setup" href="">Edit my setup</a></p>
+        <div class="collection-picker" role="group" aria-label="Artifact collection">
+          <span>Collection:</span>
+          <button type="button" data-collection="war" class="selected" aria-pressed="true">War</button>
+          <button type="button" data-collection="multiplayer" aria-pressed="false">Multiplayer</button>
+          <span id="data-status" aria-live="polite"></span>
+        </div>
         <label for="search">Bonus search</label>
         <div class="search-row">
           <input id="search" type="search" autocomplete="off" placeholder="For example: bazooka damage">
@@ -114,6 +131,8 @@
     <section id="help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title">
       <button id="close-help" type="button" aria-label="Close help">×</button>
       <h2 id="help-title">How to use this helper</h2>
+      <h3>Choose a collection</h3>
+      <p>Use the War or Multiplayer buttons to switch artifact collections. Your owned artifacts and selections are stored separately for each collection.</p>
       <h3>Find artifacts</h3>
       <p>Enter bonus text and select <strong>Tag</strong> (or press Enter). Results match any active tag, ignoring case. Remove a tag with its × or clear them with Reset tags. A green outline means an artifact matches more than one tag.</p>
       <h3>Track what you own</h3>
@@ -121,7 +140,7 @@
       <h3>Choose active bonuses</h3>
       <p>In Owned Artifacts, select <strong>Active</strong> for up to four artifacts; every bonus from those artifacts becomes active. For an artifact that is not Active, select one bonus checkbox to make just that bonus active. The Active bonuses column shows the combined, alphabetized list.</p>
       <h3>Save and share</h3>
-      <p>Your owned and active selections are saved only in this browser’s local storage. Select <strong>Copy</strong> to create a share string. Send that string to another user; they paste it into Share setup and select <strong>Load</strong>. Loading replaces their current owned and active setup, then saves it in their browser.</p>
+      <p>Your owned and active selections are saved only in this browser’s local storage. Select <strong>Copy</strong> to create a share string, or <strong>Copy Link</strong> for a read-only share URL. Opening a share URL does not change the viewer&rsquo;s saved setup. Loading a pasted setup string automatically changes to the setup’s War or Multiplayer collection, replaces that collection’s selections, then saves it in their browser.</p>
     </section>
   </div>
 
@@ -187,7 +206,7 @@
     {"name":"The Art of War","status":"available","bonuses":["Heavy Tank Hitpoints +9%","Heavy Tank Damage +9%","Invading Generals' Hitpoints -9%","Invading Generals' Damage -9%","Generals' Hitpoints and Damage +9%"]},
     {"name":"The White Death's War Kit","status":"available","bonuses":["Sniper Tower Damage +6%","Sniper Tower Hitpoints +6%","Enemy Defender Spawn Time +6%","All Defensive Towers Hitpoints +3%","All Defensive Towers Damage +3%"]},
     {"name":"Tizona Sword","status":"available","bonuses":["Enemy Defender Spawn Time +6%","Heavy Cavalry Damage +6%","Heavy Cavalry Hitpoints +3%","Ranged Siege Damage +6%","Ranged Siege Hitpoints +3%"]},
-    {"name":"Trundholm Sun Chariot","status":"unavailable","bonuses":[]},
+    {"name":"Trundholm Sun Chariot","status":"available","bonuses":["Tower Damage +6%","Air Defense Damage +6%","Invading Bomber Hitpoints -7%","Invading Transport Hitpoints -7%","All Defensive Towers Damage +6%"]},
     {"name":"Vespa 150 TAP","status":"available","bonuses":["Machine Gun Infantry Damage +7%","Machine Gun Infantry Hitpoints +7%","Ranged Siege Damage +7%","Ranged Siege Hitpoints +7%","Factory Troop Damage +1%"]},
     {"name":"Vz-9 Avrocar","status":"available","bonuses":["Invading Fighter Damage -6%","Air Defense Damage +6%","Invading Bomber Damage -6%","Invading Fighter Hitpoints -6%","Invading Bomber Hitpoints -6%"]},
     {"name":"Welrod MkII","status":"available","bonuses":["All Enemy Defensive Towers Hitpoints -8%","Enemy Defender Spawn Time +8%","Guerrilla Damage +6%","Guerrilla Hitpoints +6%","Airstrip Troop Damage +6%"]},
@@ -196,9 +215,83 @@
   ]
 }
   </script>
+  <script id="multiplayer-artifact-data" type="application/json">
+{
+  "source": "https://dominations.fandom.com/wiki/Legendary_Artifacts",
+  "artifacts": [
+    {"name":"Admiral Yi’s Helmet","status":"available","bonuses":["Invading General's Damage -6%","Enemy Defender Spawn Time +6%","Defender Damage +6%","Defender Hitpoints +11%","Invading General's Hitpoints -11%"]},
+    {"name":"Antikythera Mechanism","status":"available","bonuses":["Heavy Tank Damage +12%","National Trade Good Loot Chance +12%","Oil Looted +12%","All Resources Looted +7%","Bomber Hitpoints +7%"]},
+    {"name":"Ashanti Kuduo","status":"available","bonuses":["All Resources Looted +6%","University Research Time -6%","All Defensive Towers Hitpoints +6%","Invading General's Damage -11%","General's Damage +11%"]},
+    {"name":"Augustus Statue Muscle Cuirass","status":"available","bonuses":["Generals' Damage +11%","Generals' Damage +11%","Generals' Hitpoints +11%","Generals' Hitpoints +11%","Enemy Defender Spawn Time +11%"]},
+    {"name":"Aztec Calendar","status":"available","bonuses":["Food from Farms +11%","Gold from Caravans +11%","Oil from Oil Wells +6%","Oil from Oil Wells +6%","Vault Interest +6%"]},
+    {"name":"Captain's Croix de Guerre","status":"available","bonuses":["Food Looted +11%","Gold Looted +11%","Oil Looted +11%","All Resources Looted +11%","All Resources Looted +11%"]},
+    {"name":"Christmas Football","status":"available","bonuses":["Supply Vehicle Healing +11%","Tactical Helicopter Healing +11%","General's Hitpoints +6%","National Trade Good Loot Chance +11%","Enemy Missile Silo Damage -6%"]},
+    {"name":"Clem Sohn's Wingsuit","status":"available","bonuses":["Transport Cooldown -11%","Transport Movement Speed +11%","Quick Victory Time +11%","Bazooka Damage +6%","Bazooka Damage +6%"]},
+    {"name":"Code of Hammurabi","status":"available","bonuses":["Bazooka Cooldown +15%","Defender Hitpoints +9%","Generals' Hitpoints +12%","Generals' Hitpoints +12%","Defender Movement Speed +9%"]},
+    {"name":"Dilophosaurus Skull","status":"available","bonuses":["Oil From Oil Wells +16%","First Aid Duration +16%","Generals' Hitpoints +7%","Supply Vehicle Healing +11%","Barracks Troop Hitpoints +7%"]},
+    {"name":"Double-Headed Serpent","status":"available","bonuses":["Oil Looted +11%","Oil Looted +11%","Heavy Tank Damage +6%","Fighter Damage +6%","All Resources Looted +6%"]},
+    {"name":"Edison's Electric Lamp","status":"available","bonuses":["Looted Resource Refund +11%","Oil from Oil Wells +6%","Oil from Oil Wells +6%","All Defensive Towers DMG +8%","Invading Airstrip Unit HP -8%"]},
+    {"name":"Enigma Machine","status":"available","bonuses":["Quick Victory Time +11%","Heavy Tank Attack Speed +11%","Enemy Defender Spawn Time +11%","University Research Time -6%","Library Research Time -6%"]},
+    {"name":"Fengguan Phoenix Crown","status":"available","bonuses":["Oil from Oil Wells +11%","Oil from Oil Wells +11%","All Defensive Towers Damage +6%","Defender Spawn Time -11%","Invading Barracks Troop damage -11%"]},
+    {"name":"Fire Breathing Bunny Fossil","status":"available","bonuses":["Food Looted +11%","Gold Looted +11%","Oil Looted +11%","Forest Expansion Cost Refund +11%","First Aid Duration +10%"]},
+    {"name":"First Strike Star","status":"available","bonuses":["Quick Victory Time +8%","Enemy Defender Spawn Time +6%","All Enemy Defensive Towers Hitpoints -3%","Enemy Defender Hitpoints -3%","Enemy Missile Silo Damage -6%"]},
+    {"name":"Heads of Hevajra","status":"available","bonuses":["Factory Troop HP +6%","Factory Troop HP +6%","National Trade Good Loot Chance +16%","Armored Car DMG +11%","All Enemy Defensive Towers DMG +11%"]},
+    {"name":"Helgö Buddha","status":"available","bonuses":["Quick Victory Time +11%","University Research Time -6%","Library Research Time -6%","Defender Hitpoints +11%","Invading Bazooka Damage -11%"]},
+    {"name":"Jade Olmec Mask","status":"available","bonuses":["Enemy Missile Silo Damage -6%","Bomber Damage +6%","Paratrooper Hitpoints +6%","Bazooka Damage +11%","Enemy Defender Spawn TIme +11%"]},
+    {"name":"Keyed English Guitar","status":"available","bonuses":["Enemy Tower DMG -11%","Enemy Tower HP -11%","Enemy Sniper Tower DMG -16%","Enemy Defender Spawn Time +6%","Heavy Tank DMG +11%"]},
+    {"name":"Leoni Parade Shield","status":"available","bonuses":["Heavy Tank Hitpoints 6%","Missile Silo Damage 6%","Bomber Damage 6%","General Attack Speed 5%","Generals' Damage 6%"]},
+    {"name":"Lewis Chessmen","status":"available","bonuses":["Raiders Spawn from Forest When Attacking +1","National Trade Good Loot Chance +12%","Raiders Damage +13%","Raiders Hitpoints +13%","All Resources Looted +14%"]},
+    {"name":"Li Vessel","status":"available","bonuses":["APC Deploy Time -11%","APC Hitpoints +11%","Heavy Infantry Attack Speed +11%","Heavy Infantry Damage +11%","Guerrilla Movement Speed +6%"]},
+    {"name":"Lycurgus Cup","status":"available","bonuses":["All Enemy Defensive Towers Damage -11%","Invading Bomber Hitpoints -6%","Factory Troop Traning Cost -11%","Generals' Hitpoints +11%","Oil Looted +11%"]},
+    {"name":"Mask of Agamemnon","status":"available","bonuses":["Tower Hitpoints +11%","Tower Damage +11%","Catapult Hitpoints +11%","Catapult Damage +11%","All Defensive Tower Damage +11%"]},
+    {"name":"Mask of Tutankhamun","status":"available","bonuses":["Oil Looted +11%","Invading Heavy Tank Damage -11%","Looted Resource Refunt +11%","Invading Barracks Troop Damage -6%","Invading Bomber Damage -6%"]},
+    {"name":"Minoan Bull-Leaper","status":"available","bonuses":["General's Hitpoints and Damage +9%","All Enemy Defensive Towers Damage -9%","Airstrip Troop Hitpoints +9%","Airstrip Troop Damage +9%","Recon Scan Duration +6%"]},
+    {"name":"Morse Telegraph","status":"available","bonuses":["Heavy Cavalry HP 11%","Ranged Siege DMG 11%","Mortar Troop DMG 11%","Attack Helicopter DMG 11%","Attack Helicopter HP 16%"]},
+    {"name":"Napoleon's Bicorne Hat","status":"available","bonuses":["Barracks Troop Damage +6%","Barracks Troop Hitpoints +6%","Factory Troop Damage +6%","Factory Troop Hitpoints +6%","Airstrip Troop Damage +6%"]},
+    {"name":"Nefertiti Bust","status":"available","bonuses":["All Resources Looted +11%","All Resources Looted +11%","Raider Damage +11%","Raider Hitpoints +6%","Mortar Troop Damage +6%"]},
+    {"name":"Personal Computer","status":"available","bonuses":["Library Tech Resource Cost -13%","Looted Resource Refund +12%","Oil from Oil Wells +12%","Vault Interest +14%","Vault Capacity +13%"]},
+    {"name":"Pompus' Comb","status":"available","bonuses":["University Research Time -11%","Library Research Time -11%","Looted Resource Refund +11%","Defender Movement Speed +10%","Enemy Sabotage Duration -6%"]},
+    {"name":"Quimbaya Treasure","status":"available","bonuses":["Guerrilla DMG +6%","Guerrilla HP +9%","Quick Victory Time +8%","Quick Victory Time +8%","Decoy Tactic HP +10%"]},
+    {"name":"Rosetta Stone","status":"available","bonuses":["Library Tech Resource Cost -11%","Vault Capacity +11%","Oil from Oil Wells +6%","Looted Resource Refund +6%","Forest Expansion Cost Refund +6%"]},
+    {"name":"Ruyi Scepter","status":"available","bonuses":["Enemy Defender Spawn Time +11%","Enemy Anti-Tank Gun Damage -11%","Enemy Catapult Damage -11%","All Enemy Defensive Towers Hitpoints -6%","All Enemy Defensive Towers Damage -6%"]},
+    {"name":"Silla Gold Crown","status":"available","bonuses":["Gold Looted +11%","Gold from Gold Mines +11%","Gold from Caravans +11%","Library Tech Resource Cost -11%","Ranged Infantry Damage +11%"]},
+    {"name":"Sojourner Mars Rover","status":"available","bonuses":["National Trade Good Loot Chance +13%","University Research Time -6%","Library Research Time -6%","Barracks Troop Training Cost -11%","Factory Troop Training Cost -6%"]},
+    {"name":"Soul Catcher","status":"available","bonuses":["Supply Vechicle Healing +11%","Tactical Helicopter Healing +11%","Heavy Cavalry Hitpoints +11%","APC Hitpoints +6%","University Research Time -6%"]},
+    {"name":"Sphinx of Taharqo","status":"available","bonuses":["Library Tech Resource Cost -6%","Vault Capacity +6%","Oil from Oil Wells +1%","Looted Resource Refund +1%","Forest Expansion Cost Refund +1%"]},
+    {"name":"Stopler Revolver","status":"available","bonuses":["Defender Damage +6%","Fighters Damage +6%","Generals Damage +6%","Oil Looted +6%","Ranged Infantry Damage +6%"]},
+    {"name":"Sutton Hoo Helmet","status":"available","bonuses":["All Enemy Defensive Tower Damage -1%","Heavy Cavalry Damage +1%","All Defensive Tower Damage +1%","Defender Hitpoints +1%","Defender Spawn Time -1%"]},
+    {"name":"Swimming Reindeer","status":"available","bonuses":["Defender Hitpoints +11%","Defender Damage +11%","Invading Mortar Troop Damage -14%","Invading Fighter Damage -14%","Defender Spawn Time -11%"]},
+    {"name":"Sword of Goujian","status":"available","bonuses":["Heavy Infantry Hitpoints +11%","Heavy Infantry Damage +11%","Enemy Defender Spawn Time +11%","All Resources Looted +11%","Defender Damage +11%"]},
+    {"name":"The Book of Five Rings","status":"available","bonuses":["Vault Capacity +11%","Vault Capacity +11%","Vault Interest +6%","Vault Interest +6%","All Defensive Towers Damage +6%"]},
+    {"name":"The Book of Kells","status":"available","bonuses":["All Resources Looted +16%","All Enemy Defensive Towers Damage -11%","Transport Cooldown -11%","Paratrooper Hitpoints +16%","Paratrooper Damage +16%"]},
+    {"name":"Thinker of Cernavoda","status":"available","bonuses":["Barracks Troop Damage +11%","Enemy Defender Spawn Time +6%","All Enemy Defensive Towers Damage -11%","All Resources Looted +8%","All Resources Looted +8%"]},
+    {"name":"Tokugawa Ieyasu's Helmet","status":"available","bonuses":["Defender Damage +6%","Defender Hitpoints +6%","Defender Spawn Time -6%","Looted Resource Refund +11%","Looted Resource Refund +11%"]},
+    {"name":"Video Game Console","status":"available","bonuses":["Rally Cooldown -11%","All Resources Looted +12%","Oil Looted +14%","Heavy Tank Damage +13%","Bomber Damage +13%"]},
+    {"name":"Warka Vase","status":"available","bonuses":["Library Tech Food Cost -11%","Library Tech Gold Cost -11%","Library Tech Oil Cost -11%","Library Tech Resource Cost -1%","Forest Expansion Cost Refund +16%"]}
+  ]
+}
+  </script>
   <script>
     (() => {
-      const data = JSON.parse(document.getElementById("artifact-data").textContent);
+      const catalogs = {
+        war: JSON.parse(document.getElementById("artifact-data").textContent),
+        multiplayer: JSON.parse(document.getElementById("multiplayer-artifact-data").textContent)
+      };
+      const collections = {
+        war: {
+          label: "War",
+          jsonUrl: "legendary-war-artifacts.json",
+          storageKey: "dominations-legendary-artifact-finder-owned"
+        },
+        multiplayer: {
+          label: "Multiplayer",
+          jsonUrl: "legendary-multiplayer-artifacts.json",
+          storageKey: "dominations-legendary-multiplayer-artifact-finder-owned"
+        }
+      };
+      const hasCollection = (collection) => Object.prototype.hasOwnProperty.call(collections, collection);
+      let currentCollection = "war";
+      let data = catalogs[currentCollection];
       const input = document.getElementById("search");
       const addTagButton = document.getElementById("add-tag");
       const tagList = document.getElementById("tags");
@@ -208,6 +301,7 @@
       const activeBonuses = document.getElementById("active-bonuses");
       const setupString = document.getElementById("setup-string");
       const copySetupButton = document.getElementById("copy-setup");
+      const copyLinkButton = document.getElementById("copy-link");
       const loadSetupButton = document.getElementById("load-setup");
       const shareStatus = document.getElementById("share-status");
       const helpButton = document.getElementById("help-button");
@@ -215,26 +309,47 @@
       const closeHelpButton = document.getElementById("close-help");
       const summary = document.getElementById("summary");
       const results = document.getElementById("results");
+      const pageTitle = document.getElementById("page-title");
+      const ownedTitle = document.getElementById("owned-title");
+      const dataStatus = document.getElementById("data-status");
+      const sharedViewMessage = document.getElementById("shared-view-message");
+      const editMySetup = document.getElementById("edit-my-setup");
+      const collectionButtons = [...document.querySelectorAll("[data-collection]")];
       const tags = [];
-      const ownedStorageKey = "dominations-legendary-artifact-finder-owned";
-      const artifactNames = new Set(data.artifacts.map((artifact) => artifact.name));
-      const owned = new Set();
-      const active = new Set();
-      const selectedBonus = new Map();
+      let ownedStorageKey = collections[currentCollection].storageKey;
+      let artifactNames = new Set();
+      let owned = new Set();
+      let active = new Set();
+      let selectedBonus = new Map();
+      let isSharedView = false;
 
-      try {
-        const saved = JSON.parse(localStorage.getItem(ownedStorageKey) || "[]");
-        const savedOwned = Array.isArray(saved) ? saved : saved.owned || [];
-        savedOwned.filter((name) => artifactNames.has(name)).forEach((name) => owned.add(name));
-        if (!Array.isArray(saved)) {
-          (saved.active || []).filter((name) => owned.has(name)).slice(0, 4).forEach((name) => active.add(name));
-          Object.entries(saved.selectedBonuses || saved.showcase || {}).forEach(([name, bonusIndex]) => {
-            const artifact = data.artifacts.find((item) => item.name === name);
-            if (owned.has(name) && artifact && Number.isInteger(bonusIndex) && bonusIndex >= 0 && bonusIndex < artifact.bonuses.length && !active.has(name)) selectedBonus.set(name, bonusIndex);
-          });
+      function isCatalog(value) {
+        return value && Array.isArray(value.artifacts) && value.artifacts.every((artifact) =>
+          artifact && typeof artifact.name === "string" &&
+          (artifact.status === "available" || artifact.status === "unavailable") &&
+          Array.isArray(artifact.bonuses)
+        );
+      }
+
+      function restoreCollectionState() {
+        artifactNames = new Set(data.artifacts.map((artifact) => artifact.name));
+        owned = new Set();
+        active = new Set();
+        selectedBonus = new Map();
+        try {
+          const saved = JSON.parse(localStorage.getItem(ownedStorageKey) || "[]");
+          const savedOwned = Array.isArray(saved) ? saved : saved.owned || [];
+          savedOwned.filter((name) => artifactNames.has(name)).forEach((name) => owned.add(name));
+          if (!Array.isArray(saved)) {
+            (saved.active || []).filter((name) => owned.has(name)).slice(0, 4).forEach((name) => active.add(name));
+            Object.entries(saved.selectedBonuses || saved.showcase || {}).forEach(([name, bonusIndex]) => {
+              const artifact = data.artifacts.find((item) => item.name === name);
+              if (owned.has(name) && artifact && Number.isInteger(bonusIndex) && bonusIndex >= 0 && bonusIndex < artifact.bonuses.length && !active.has(name)) selectedBonus.set(name, bonusIndex);
+            });
+          }
+        } catch (_) {
+          // Ignore invalid local storage and use an empty setup.
         }
-      } catch (_) {
-        // Ignore invalid or unavailable local storage and use an empty owned list.
       }
 
       function persistOwned() {
@@ -251,7 +366,8 @@
 
       function exportSetup() {
         return {
-          version: 1,
+          version: 2,
+          collection: currentCollection,
           owned: [...owned],
           active: [...active],
           showcase: Object.fromEntries(selectedBonus)
@@ -270,11 +386,41 @@
         const padded = base64 + "=".repeat((4 - base64.length % 4) % 4);
         const bytes = Uint8Array.from(atob(padded), (character) => character.charCodeAt(0));
         const setup = JSON.parse(new TextDecoder().decode(bytes));
-        if (!setup || setup.version !== 1 || !Array.isArray(setup.owned) || !Array.isArray(setup.active) || typeof setup.showcase !== "object" || setup.showcase === null) throw new Error("Unsupported setup format.");
+        if (!setup || !Array.isArray(setup.owned) || !Array.isArray(setup.active) || typeof setup.showcase !== "object" || setup.showcase === null) throw new Error("Unsupported setup format.");
+        if (setup.version === 1) return { ...setup, collection: "war" };
+        if (setup.version !== 2 || !hasCollection(setup.collection)) throw new Error("Unsupported setup format.");
         return setup;
       }
 
-      function loadSetup(setup) {
+      function sharedSetupFromLocation() {
+        const match = location.hash.match(/^#view=([^&]+)$/);
+        if (!match) return null;
+        try {
+          return deserializeSetup(match[1]);
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function shareUrl() {
+        const url = new URL(location.href);
+        url.hash = `view=${serializeSetup()}`;
+        return url.href;
+      }
+
+      async function copyText(value, successMessage) {
+        try {
+          await navigator.clipboard.writeText(value);
+          shareStatus.textContent = successMessage;
+        } catch (_) {
+          setupString.value = value;
+          setupString.select();
+          document.execCommand("copy");
+          shareStatus.textContent = "Copied text is ready in the share box.";
+        }
+      }
+
+      function applySetup(setup, save = true) {
         const nextOwned = new Set(setup.owned.filter((name) => artifactNames.has(name)));
         const nextActive = new Set(setup.active.filter((name) => nextOwned.has(name)).slice(0, 4));
         const nextSelectedBonus = new Map();
@@ -285,10 +431,63 @@
         owned.clear(); nextOwned.forEach((name) => owned.add(name));
         active.clear(); nextActive.forEach((name) => active.add(name));
         selectedBonus.clear(); nextSelectedBonus.forEach((index, name) => selectedBonus.set(name, index));
-        persistOwned();
+        if (save) persistOwned();
         renderActiveBonuses();
         renderOwned();
         render();
+      }
+
+      function loadSetup(setup) {
+        if (setup.collection !== currentCollection) setCollection(setup.collection);
+        applySetup(setup);
+      }
+
+      function setCollection(collection, restore = true) {
+        if (!hasCollection(collection)) return;
+        currentCollection = collection;
+        data = catalogs[collection];
+        ownedStorageKey = collections[collection].storageKey;
+        tags.length = 0;
+        if (restore) restoreCollectionState();
+        else artifactNames = new Set(data.artifacts.map((artifact) => artifact.name));
+        pageTitle.textContent = `Dominations ${collections[collection].label} Legendary Artifact Helper`;
+        ownedTitle.textContent = `Owned ${collections[collection].label} Artifacts`;
+        collectionButtons.forEach((button) => {
+          const selected = button.dataset.collection === collection;
+          button.classList.toggle("selected", selected);
+          button.setAttribute("aria-pressed", String(selected));
+        });
+        renderTags();
+        renderActiveBonuses();
+        renderOwned();
+        render();
+        refreshExternalCatalog(collection);
+      }
+
+      async function refreshExternalCatalog(collection) {
+        if (location.protocol === "file:") {
+          dataStatus.textContent = "Using embedded data.";
+          return;
+        }
+        dataStatus.textContent = "Refreshing data…";
+        try {
+          const response = await fetch(collections[collection].jsonUrl, { cache: "no-cache" });
+          if (!response.ok) throw new Error("Catalog request failed");
+          const externalCatalog = await response.json();
+          if (!isCatalog(externalCatalog)) throw new Error("Invalid catalog");
+          catalogs[collection] = externalCatalog;
+          if (currentCollection === collection) {
+            data = externalCatalog;
+            if (isSharedView) artifactNames = new Set(data.artifacts.map((artifact) => artifact.name));
+            else restoreCollectionState();
+            renderActiveBonuses();
+            renderOwned();
+            render();
+          }
+          dataStatus.textContent = "External data loaded.";
+        } catch (_) {
+          dataStatus.textContent = "Using embedded data.";
+        }
       }
 
       function appendHighlightedText(element, text, queries) {
@@ -364,35 +563,47 @@
         const title = document.createElement("h2");
         title.textContent = artifact.name;
         heading.append(title);
-        const action = document.createElement("button");
-        action.type = "button";
-        action.className = isOwned ? "remove-owned" : "own-action";
-        action.textContent = isOwned ? "×" : "✓";
-        action.setAttribute("aria-label", isOwned ? `Remove ${artifact.name} from owned` : `Mark ${artifact.name} as owned`);
-        action.addEventListener("click", () => {
-          if (isOwned) {
-            owned.delete(artifact.name);
-            active.delete(artifact.name);
-            selectedBonus.delete(artifact.name);
-          } else owned.add(artifact.name);
-          persistOwned();
-          renderActiveBonuses();
-          renderOwned();
-          render();
-        });
-        heading.append(action);
+        if (!isSharedView) {
+          const action = document.createElement("button");
+          action.type = "button";
+          action.className = isOwned ? "remove-owned" : "own-action";
+          action.textContent = isOwned ? "×" : "✓";
+          action.setAttribute("aria-label", isOwned ? `Remove ${artifact.name} from owned` : `Mark ${artifact.name} as owned`);
+          action.addEventListener("click", () => {
+            if (isOwned) {
+              owned.delete(artifact.name);
+              active.delete(artifact.name);
+              selectedBonus.delete(artifact.name);
+            } else owned.add(artifact.name);
+            persistOwned();
+            renderActiveBonuses();
+            renderOwned();
+            render();
+          });
+          heading.append(action);
+        }
         card.append(heading);
         const isActive = active.has(artifact.name);
+        if (isSharedView && isOwned) {
+          const status = document.createElement("p");
+          status.className = "intro";
+          status.textContent = isActive
+            ? "Fully active"
+            : selectedBonus.has(artifact.name)
+              ? `Showcase: ${artifact.bonuses[selectedBonus.get(artifact.name)]}`
+              : "Showcase: no bonus selected";
+          card.append(status);
+        }
         if (artifact.status === "unavailable") {
           const note = document.createElement("p");
           note.className = "unavailable";
-          note.textContent = "No bonus data is available in the source Quick View table.";
+          note.textContent = "No bonus data is available in the source artifact table.";
           card.append(note);
         } else {
           const list = document.createElement("ul");
           artifact.bonuses.forEach((bonus, index) => {
             const item = document.createElement("li");
-            if (isOwned && !isActive) {
+            if (isOwned && !isActive && !isSharedView) {
               const choice = document.createElement("label");
               choice.className = "bonus-choice";
               const checkbox = document.createElement("input");
@@ -413,7 +624,7 @@
           });
           card.append(list);
         }
-        if (isOwned && artifact.bonuses.length > 0) {
+        if (isOwned && artifact.bonuses.length > 0 && !isSharedView) {
           const modes = document.createElement("div");
           modes.className = "artifact-mode";
           const activeButton = document.createElement("button");
@@ -482,6 +693,9 @@
       }
 
       addTagButton.addEventListener("click", addTag);
+      collectionButtons.forEach((button) => {
+        button.addEventListener("click", () => setCollection(button.dataset.collection));
+      });
       input.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
@@ -505,14 +719,10 @@
       copySetupButton.addEventListener("click", async () => {
         const serialized = serializeSetup();
         setupString.value = serialized;
-        try {
-          await navigator.clipboard.writeText(serialized);
-          shareStatus.textContent = "Setup copied.";
-        } catch (_) {
-          setupString.select();
-          document.execCommand("copy");
-          shareStatus.textContent = "Setup selected for copying.";
-        }
+        await copyText(serialized, "Setup copied.");
+      });
+      copyLinkButton.addEventListener("click", async () => {
+        await copyText(shareUrl(), "Read-only share link copied.");
       });
       loadSetupButton.addEventListener("click", () => {
         try {
@@ -536,10 +746,18 @@
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !helpOverlay.hidden) closeHelpButton.click();
       });
-      renderTags();
-      renderActiveBonuses();
-      renderOwned();
-      render();
+      const sharedSetup = sharedSetupFromLocation();
+      if (sharedSetup) {
+        isSharedView = true;
+        document.body.classList.add("shared-view");
+        setCollection(sharedSetup.collection, false);
+        applySetup(sharedSetup, false);
+        document.querySelector(".intro").textContent = `Read-only ${collections[currentCollection].label} artifact setup.`;
+        sharedViewMessage.hidden = false;
+        editMySetup.href = `${location.pathname}${location.search}`;
+      } else {
+        setCollection("war");
+      }
     })();
   </script>
 </body>

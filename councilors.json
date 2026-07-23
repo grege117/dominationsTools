@@ -1,6 +1,6 @@
 {
   "source": "https://dominations.fandom.com/wiki/Councilors#Councilors_List",
-  "generatedAt": "2026-07-21T19:33:54Z",
+  "generatedAt": "2026-07-23T16:13:43Z",
   "rarities": [
     "Common",
     "Uncommon",
@@ -85,6 +85,78 @@
             "value": "+30%"
           }
         ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+7%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+9%"
+          },
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+12%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+15%"
+          },
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Mercenary Damage & Hitpoints",
+            "value": "+15%"
+          }
+        ]
       }
     },
     {
@@ -95,27 +167,27 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+1%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+3%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+3%"
           }
         ],
         "Rare": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+5%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+5%"
           },
           {
@@ -125,11 +197,11 @@
         ],
         "Epic": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+10%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+9%"
           },
           {
@@ -137,17 +209,17 @@
             "value": "+10%"
           },
           {
-            "stat": "Attack Helicopter Damage and HP",
+            "stat": "Attack Helicopter Damage and Hitpoints",
             "value": "+8%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+15%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+14%"
           },
           {
@@ -155,11 +227,83 @@
             "value": "+16%"
           },
           {
-            "stat": "Attack Helicopter Damage and HP",
+            "stat": "Attack Helicopter Damage and Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "Air Defense Damage and HP",
+            "stat": "Air Defense Damage and Hitpoints",
+            "value": "+8%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+3%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+5%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+10%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Fighter Damage",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+15%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Fighter Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Paratrooper Damage and Hitpoints",
             "value": "+8%"
           }
         ]
@@ -173,71 +317,143 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+6%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+8%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
             "value": "+6%"
           }
         ],
         "Rare": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+11%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
             "value": "+8%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-15%"
           }
         ],
         "Epic": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+14%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
             "value": "+10%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-18%"
           },
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+14%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+18%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
             "value": "+12%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-24%"
           },
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+18%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
+            "value": "+12%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+6%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+8%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+6%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+11%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-15%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+14%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-18%"
+          },
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+14%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-24%"
+          },
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Paratrooper Damage",
             "value": "+12%"
           }
         ]
@@ -261,7 +477,7 @@
             "value": "+3%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+3%"
           }
         ],
@@ -271,7 +487,7 @@
             "value": "+5%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+5%"
           },
           {
@@ -285,7 +501,7 @@
             "value": "+10%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+9%"
           },
           {
@@ -303,7 +519,7 @@
             "value": "+15%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+14%"
           },
           {
@@ -319,6 +535,78 @@
             "value": "+8%"
           }
         ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+4%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+6%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+1%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+8%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+2%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+10%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+4%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+13%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+8%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-12%"
+          }
+        ]
       }
     },
     {
@@ -329,71 +617,143 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+9%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+11%"
           },
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+11%"
           }
         ],
         "Rare": [
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+13%"
           },
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+13%"
           },
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "+11%"
           }
         ],
         "Epic": [
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+16%"
           },
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+16%"
           },
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "+13%"
           },
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "+13%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+20%"
           },
           {
-            "stat": "Redoubt DMG",
+            "stat": "Redoubt Damage",
             "value": "+20%"
           },
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "-16%"
           },
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "-16%"
           },
           {
-            "stat": "Air Defense DMG & HP",
+            "stat": "Air Defense Damage & Hitpoints",
+            "value": "+18%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Redoubt Damage",
+            "value": "+9%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Redoubt Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Redoubt Damage",
+            "value": "+11%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Redoubt Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Redoubt Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Tower Damage",
+            "value": "+11%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Redoubt Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Redoubt Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Tower Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Tower Damage",
+            "value": "+13%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Redoubt Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Redoubt Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Tower Damage",
+            "value": "-16%"
+          },
+          {
+            "stat": "Tower Damage",
+            "value": "-16%"
+          },
+          {
+            "stat": "Air Defense Damage & Hitpoints",
             "value": "+18%"
           }
         ]
@@ -475,6 +835,78 @@
             "value": "+8%"
           }
         ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+6%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+8%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+8%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+7%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+10%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+13%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Recon Scan Bonus Damage",
+            "value": "+10%"
+          }
+        ]
       }
     },
     {
@@ -485,71 +917,143 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Generals DMG",
+            "stat": "Generals Damage",
             "value": "+7%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Generals DMG",
+            "stat": "Generals Damage",
             "value": "+9%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+4%"
           }
         ],
         "Rare": [
           {
-            "stat": "Generals DMG",
+            "stat": "Generals Damage",
             "value": "+12%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+6%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+6%"
           }
         ],
         "Epic": [
           {
-            "stat": "Generals DMG",
+            "stat": "Generals Damage",
             "value": "+16%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+10%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+10%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
             "value": "+9%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Generals DMG",
+            "stat": "Generals Damage",
             "value": "+20%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+16%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+16%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
             "value": "+14%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
+            "value": "+20%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Generals Damage",
+            "value": "+7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Generals Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Generals Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+6%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Generals Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+10%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+10%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Generals Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+16%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+16%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Paratrooper Hitpoints",
             "value": "+20%"
           }
         ]
@@ -627,8 +1131,80 @@
             "value": "-14%"
           },
           {
-            "stat": "Paratrooper Damage and HP",
+            "stat": "Paratrooper Damage and Hitpoints",
             "value": "+8%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+5%"
+          },
+          {
+            "stat": "Air Defense Hitpoints",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+9%"
+          },
+          {
+            "stat": "Air Defense Hitpoints",
+            "value": "+7%"
+          },
+          {
+            "stat": "Guerrilla Hitpoints",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+14%"
+          },
+          {
+            "stat": "Air Defense Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Guerrilla Hitpoints",
+            "value": "+15%"
+          },
+          {
+            "stat": "Guerilla Damage",
+            "value": "+12%"
           }
         ]
       }
@@ -641,72 +1217,144 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Machine Gun Infantry DMG",
+            "stat": "Machine Gun Infantry Damage",
             "value": "+7%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Machine Gun Infantry DMG",
+            "stat": "Machine Gun Infantry Damage",
             "value": "+9%"
           },
           {
-            "stat": "Machine Gun Infantry HP",
+            "stat": "Machine Gun Infantry Hitpoints",
             "value": "+9%"
           }
         ],
         "Rare": [
           {
-            "stat": "Machine Gun Infantry DMG",
+            "stat": "Machine Gun Infantry Damage",
             "value": "+12%"
           },
           {
-            "stat": "Machine Gun Infantry HP",
+            "stat": "Machine Gun Infantry Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-6%"
           }
         ],
         "Epic": [
           {
-            "stat": "Machine Gun Infantry DMG",
+            "stat": "Machine Gun Infantry Damage",
             "value": "+16%"
           },
           {
-            "stat": "Machine Gun Infantry HP",
+            "stat": "Machine Gun Infantry Hitpoints",
             "value": "+16%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-10%"
           },
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+8%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Machine Gun Infantry DMG",
+            "stat": "Machine Gun Infantry Damage",
             "value": "+20%"
           },
           {
-            "stat": "Machine Gun Infantry HP",
+            "stat": "Machine Gun Infantry Hitpoints",
             "value": "+20%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-16%"
           },
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+12%"
           },
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+12%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Oil from Oil Wells",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Oil from Oil Wells",
+            "value": "+7%"
+          },
+          {
+            "stat": "Library Tech Oil Cost",
+            "value": "-4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Oil from Oil Wells",
+            "value": "+9%"
+          },
+          {
+            "stat": "Library Tech Oil Cost",
+            "value": "-5%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+8%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Oil from Oil Wells",
+            "value": "+12%"
+          },
+          {
+            "stat": "Library Tech Oil Cost",
+            "value": "-7%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+10%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+7%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Oil from Oil Wells",
+            "value": "+15%"
+          },
+          {
+            "stat": "Library Tech Oil Cost",
+            "value": "-10%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+13%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+10%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+10%"
           }
         ]
       }
@@ -787,6 +1435,78 @@
             "value": "+10%"
           }
         ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+3%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+2%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+5%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+4%"
+          },
+          {
+            "stat": "Library Tech Oil Cost",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+10%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+6%"
+          },
+          {
+            "stat": "Library Tech Oil Cost",
+            "value": "-10%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Cavalry HP",
+            "value": "+15%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+10%"
+          },
+          {
+            "stat": "Library Tech Oil Cost",
+            "value": "-15%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+15%"
+          },
+          {
+            "stat": "Bomber Damage and HP",
+            "value": "+7%"
+          }
+        ]
       }
     },
     {
@@ -797,71 +1517,143 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Attack Helicopter DMG & HP",
+            "stat": "Attack Helicopter Damage & Hitpoints",
             "value": "+3%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Attack Helicopter DMG & HP",
+            "stat": "Attack Helicopter Damage & Hitpoints",
             "value": "+4%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-9%"
           }
         ],
         "Rare": [
           {
-            "stat": "Attack Helicopter DMG & HP",
+            "stat": "Attack Helicopter Damage & Hitpoints",
             "value": "+5%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-12%"
           },
           {
-            "stat": "Enemy Tower HP",
+            "stat": "Enemy Tower Hitpoints",
             "value": "-6%"
           }
         ],
         "Epic": [
           {
-            "stat": "Attack Helicopter DMG & HP",
+            "stat": "Attack Helicopter Damage & Hitpoints",
             "value": "+7%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-16%"
           },
           {
-            "stat": "Enemy Tower HP",
+            "stat": "Enemy Tower Hitpoints",
             "value": "-10%"
           },
           {
-            "stat": "Enemy Air Defense DMG",
+            "stat": "Enemy Air Defense Damage",
             "value": "-16%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Attack Helicopter DMG & HP",
+            "stat": "Attack Helicopter Damage & Hitpoints",
             "value": "+10%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-20%"
           },
           {
-            "stat": "Enemy Tower HP",
+            "stat": "Enemy Tower Hitpoints",
             "value": "-16%"
           },
           {
-            "stat": "Enemy Air Defense DMG",
+            "stat": "Enemy Air Defense Damage",
             "value": "-20%"
           },
           {
-            "stat": "Attack Helicopter DMG",
+            "stat": "Attack Helicopter Damage",
+            "value": "+10%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Attack Helicopter Damage & Hitpoints",
+            "value": "+3%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Attack Helicopter Damage & Hitpoints",
+            "value": "+4%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Attack Helicopter Damage & Hitpoints",
+            "value": "+5%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Enemy Tower Hitpoints",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Attack Helicopter Damage & Hitpoints",
+            "value": "+7%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-16%"
+          },
+          {
+            "stat": "Enemy Tower Hitpoints",
+            "value": "-10%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-16%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Attack Helicopter Damage & Hitpoints",
+            "value": "+10%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-20%"
+          },
+          {
+            "stat": "Enemy Tower Hitpoints",
+            "value": "-16%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-20%"
+          },
+          {
+            "stat": "Attack Helicopter Damage",
             "value": "+10%"
           }
         ]
@@ -875,72 +1667,144 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Enemy Air Def. DMG",
+            "stat": "Enemy Air Def. Damage",
             "value": "-3%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Enemy Air Def. DMG",
+            "stat": "Enemy Air Def. Damage",
             "value": "-4%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+4%"
           }
         ],
         "Rare": [
           {
-            "stat": "Enemy Air Def. DMG",
+            "stat": "Enemy Air Def. Damage",
             "value": "-5%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+5%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+8%"
           }
         ],
         "Epic": [
           {
-            "stat": "Enemy Air Def. DMG",
+            "stat": "Enemy Air Def. Damage",
             "value": "-6%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+7%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+11%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
             "value": "+7%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Enemy Air Def. DMG",
+            "stat": "Enemy Air Def. Damage",
             "value": "-8%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+10%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+15%"
           },
           {
-            "stat": "Paratrooper DMG",
+            "stat": "Paratrooper Damage",
             "value": "+10%"
           },
           {
-            "stat": "Bomber DMG & HP",
+            "stat": "Bomber Damage & Hitpoints",
             "value": "+7%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+8%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+10%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-8%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+12%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-10%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+15%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-13%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+20%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-16%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-10%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+15%"
+          },
+          {
+            "stat": "All Def. Tower Damage & Hitpoints",
+            "value": "+6%"
           }
         ]
       }
@@ -953,67 +1817,139 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "+9%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "+10%"
           },
           {
-            "stat": "Sniper Tower DMG",
+            "stat": "Sniper Tower Damage",
             "value": "+10%"
           }
         ],
         "Rare": [
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "+12%"
           },
           {
-            "stat": "Sniper Tower DMG",
+            "stat": "Sniper Tower Damage",
             "value": "+12%"
           },
           {
-            "stat": "Defender DMG",
+            "stat": "Defender Damage",
             "value": "+8%"
           }
         ],
         "Epic": [
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "+15%"
           },
           {
-            "stat": "Sniper Tower DMG",
+            "stat": "Sniper Tower Damage",
             "value": "+15%"
           },
           {
-            "stat": "Defender DMG",
+            "stat": "Defender Damage",
             "value": "+10%"
           },
           {
-            "stat": "Defender HP",
+            "stat": "Defender Hitpoints",
             "value": "+12%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Tower DMG",
+            "stat": "Tower Damage",
             "value": "+20%"
           },
           {
-            "stat": "Sniper Tower DMG",
+            "stat": "Sniper Tower Damage",
             "value": "+20%"
           },
           {
-            "stat": "Defender DMG",
+            "stat": "Defender Damage",
             "value": "+14%"
           },
           {
-            "stat": "Defender HP",
+            "stat": "Defender Hitpoints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "+14%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Food from Farms",
+            "value": "+12%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Food from Farms",
+            "value": "+18%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+10%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Food from Farms",
+            "value": "+25%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+12%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+8%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Food from Farms",
+            "value": "+30%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+15%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Food from Farms",
+            "value": "+40%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+20%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Defender Hitpoints",
             "value": "+18%"
           },
           {
@@ -1031,71 +1967,143 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Defensive Tower DMG",
+            "stat": "Defensive Tower Damage",
             "value": "+5%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Defensive Tower DMG",
+            "stat": "Defensive Tower Damage",
             "value": "+6%"
           },
           {
-            "stat": "Air Defense DMG",
+            "stat": "Air Defense Damage",
             "value": "+7%"
           }
         ],
         "Rare": [
           {
-            "stat": "Defensive Tower DMG",
+            "stat": "Defensive Tower Damage",
             "value": "+7%"
           },
           {
-            "stat": "Air Defense DMG",
+            "stat": "Air Defense Damage",
             "value": "+9%"
           },
           {
-            "stat": "Air Defense DMG & HP",
+            "stat": "Air Defense Damage & Hitpoints",
             "value": "+5%"
           }
         ],
         "Epic": [
           {
-            "stat": "Defensive Tower DMG",
+            "stat": "Defensive Tower Damage",
             "value": "+9%"
           },
           {
-            "stat": "Air Defense DMG",
+            "stat": "Air Defense Damage",
             "value": "+11%"
           },
           {
-            "stat": "Air Defense DMG & HP",
+            "stat": "Air Defense Damage & Hitpoints",
             "value": "+7%"
           },
           {
-            "stat": "Invading Fighter DMG & HP",
+            "stat": "Invading Fighter Damage & Hitpoints",
             "value": "-7%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Defensive Tower DMG",
+            "stat": "Defensive Tower Damage",
             "value": "+12%"
           },
           {
-            "stat": "Air Defense DMG",
+            "stat": "Air Defense Damage",
             "value": "+14%"
           },
           {
-            "stat": "Air Defense DMG & HP",
+            "stat": "Air Defense Damage & Hitpoints",
             "value": "+10%"
           },
           {
-            "stat": "Invading Fighter DMG & HP",
+            "stat": "Invading Fighter Damage & Hitpoints",
             "value": "-10%"
           },
           {
-            "stat": "All Defensive Tower DMG & HP",
+            "stat": "All Defensive Tower Damage & Hitpoints",
+            "value": "+10%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-6%"
+          },
+          {
+            "stat": "Attack Helicopter DMG & Hitpoints",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Attack Helicopter DMG & Hitpoints",
+            "value": "+5%"
+          },
+          {
+            "stat": "Fighter Damage",
+            "value": "+5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-9%"
+          },
+          {
+            "stat": "Attack Helicopter DMG & Hitpoints",
+            "value": "+6%"
+          },
+          {
+            "stat": "Fighter Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Fighter Hitpoints",
+            "value": "+7%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Attack Helicopter DMG & Hitpoints",
+            "value": "+8%"
+          },
+          {
+            "stat": "Fighter Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Fighter Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bomber Damage & Hitpoints",
             "value": "+10%"
           }
         ]
@@ -1119,7 +2127,7 @@
             "value": "+2%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+3%"
           }
         ],
@@ -1129,11 +2137,11 @@
             "value": "+4%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+5%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+6%"
           }
         ],
@@ -1143,15 +2151,15 @@
             "value": "+7%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+9%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+10%"
           },
           {
-            "stat": "Invading Guerrilla HP",
+            "stat": "Invading Guerrilla Hitpoints",
             "value": "-11%"
           }
         ],
@@ -1161,20 +2169,92 @@
             "value": "+11%"
           },
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+14%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+15%"
           },
           {
-            "stat": "Invading Guerrilla HP",
+            "stat": "Invading Guerrilla Hitpoints",
             "value": "-15%"
           },
           {
             "stat": "Invading Generals’ Attack Speed",
             "value": "-15%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-5%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-9%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-14%"
+          },
+          {
+            "stat": "Enemy Tower Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-12%"
           }
         ]
       }
@@ -1187,72 +2267,144 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+5%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+6%"
           },
           {
-            "stat": "Fighter DMG",
+            "stat": "Fighter Damage",
             "value": "+4%"
           }
         ],
         "Rare": [
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+7%"
           },
           {
-            "stat": "Fighter DMG",
+            "stat": "Fighter Damage",
             "value": "+5%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+7%"
           }
         ],
         "Epic": [
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+9%"
           },
           {
-            "stat": "Fighter DMG",
+            "stat": "Fighter Damage",
             "value": "+7%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+9%"
           },
           {
-            "stat": "Bomber DMG & HP",
+            "stat": "Bomber Damage & Hitpoints",
             "value": "+7%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Fighter HP",
+            "stat": "Fighter Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "Fighter DMG",
+            "stat": "Fighter Damage",
             "value": "+10%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+12%"
           },
           {
-            "stat": "Bomber DMG & HP",
+            "stat": "Bomber Damage & Hitpoints",
             "value": "+10%"
           },
           {
-            "stat": "Recon Scan Bonus DMG",
+            "stat": "Recon Scan Bonus Damage",
             "value": "+10%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Bazooka Damage",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Bazooka Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+6%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Bazooka Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+8%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+7%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Bazooka Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+10%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+9%"
+          },
+          {
+            "stat": "Paratrooper Hitpoints & Damage",
+            "value": "+7%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Bazooka Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+13%"
+          },
+          {
+            "stat": "Generals Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Paratrooper Hitpoints & Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+14%"
           }
         ]
       }
@@ -1289,7 +2441,7 @@
             "value": "+5%"
           },
           {
-            "stat": "Invading Bazooka HP",
+            "stat": "Invading Bazooka Hitpoints",
             "value": "-5%"
           }
         ],
@@ -1303,7 +2455,7 @@
             "value": "+9%"
           },
           {
-            "stat": "Invading Bazooka HP",
+            "stat": "Invading Bazooka Hitpoints",
             "value": "-9%"
           },
           {
@@ -1321,7 +2473,7 @@
             "value": "+15%"
           },
           {
-            "stat": "Invading Bazooka HP",
+            "stat": "Invading Bazooka Hitpoints",
             "value": "-14%"
           },
           {
@@ -1329,8 +2481,80 @@
             "value": "-14%"
           },
           {
-            "stat": "All Defensive Tower Damage and HP",
+            "stat": "All Defensive Tower Damage and Hitpoints",
             "value": "+6%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+1%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+2%"
+          },
+          {
+            "stat": "Invading Bazooka Damage",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+4%"
+          },
+          {
+            "stat": "Invading Bazooka Damage",
+            "value": "-10%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+8%"
+          },
+          {
+            "stat": "Invading Bazooka Damage",
+            "value": "-15%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+15%"
+          },
+          {
+            "stat": "Guerrilla Damage",
+            "value": "+12%"
           }
         ]
       }
@@ -1385,7 +2609,7 @@
             "value": "+7%"
           },
           {
-            "stat": "Invading Bazooka HP",
+            "stat": "Invading Bazooka Hitpoints",
             "value": "-11%"
           }
         ],
@@ -1403,12 +2627,84 @@
             "value": "+12%"
           },
           {
-            "stat": "Invading Bazooka HP",
+            "stat": "Invading Bazooka Hitpoints",
             "value": "-16%"
           },
           {
             "stat": "Recon Scan Bonus Damage",
             "value": "+10%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Generals' Hitpoints",
+            "value": "+2%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Generals' Hitpoints",
+            "value": "+4%"
+          },
+          {
+            "stat": "Sabotage Duration",
+            "value": "+15%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Generals' Hitpoints",
+            "value": "+6%"
+          },
+          {
+            "stat": "Sabotage Duration",
+            "value": "+19%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and Hitpoints",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Generals' Hitpoints",
+            "value": "+10%"
+          },
+          {
+            "stat": "Sabotage Duration",
+            "value": "+24%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+14%"
           }
         ]
       }
@@ -1421,27 +2717,27 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+5%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+6%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+9%"
           }
         ],
         "Rare": [
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+7%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+11%"
           },
           {
@@ -1451,11 +2747,11 @@
         ],
         "Epic": [
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+9%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+14%"
           },
           {
@@ -1463,17 +2759,17 @@
             "value": "+9%"
           },
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+13%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+16%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+20%"
           },
           {
@@ -1481,11 +2777,83 @@
             "value": "+15%"
           },
           {
-            "stat": "Heavy Tank DMG",
+            "stat": "Heavy Tank Damage",
             "value": "+20%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
+            "value": "+16%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Protect Duration",
+            "value": "+7%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Protect Duration",
+            "value": "+9%"
+          },
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+13%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Protect Duration",
+            "value": "+15%"
+          },
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
             "value": "+16%"
           }
         ]
@@ -1499,71 +2867,143 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Invading Fighter HP",
+            "stat": "Invading Fighter Hitpoints",
             "value": "-7%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Invading Fighter HP",
+            "stat": "Invading Fighter Hitpoints",
             "value": "-9%"
           },
           {
-            "stat": "Invading Fighter DMG",
+            "stat": "Invading Fighter Damage",
             "value": "-4%"
           }
         ],
         "Rare": [
           {
-            "stat": "Invading Fighter HP",
+            "stat": "Invading Fighter Hitpoints",
             "value": "-12%"
           },
           {
-            "stat": "Invading Fighter DMG",
+            "stat": "Invading Fighter Damage",
             "value": "-6%"
           },
           {
-            "stat": "Invading Bomber DMG",
+            "stat": "Invading Bomber Damage",
             "value": "-6%"
           }
         ],
         "Epic": [
           {
-            "stat": "Invading Fighter HP",
+            "stat": "Invading Fighter Hitpoints",
             "value": "-16%"
           },
           {
-            "stat": "Invading Fighter DMG",
+            "stat": "Invading Fighter Damage",
             "value": "-9%"
           },
           {
-            "stat": "Invading Bomber DMG",
+            "stat": "Invading Bomber Damage",
             "value": "-9%"
           },
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-10%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Invading Fighter HP",
+            "stat": "Invading Fighter Hitpoints",
             "value": "-20%"
           },
           {
-            "stat": "Invading Fighter DMG",
+            "stat": "Invading Fighter Damage",
             "value": "-14%"
           },
           {
-            "stat": "Invading Bomber DMG",
+            "stat": "Invading Bomber Damage",
             "value": "-14%"
           },
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-16%"
           },
           {
-            "stat": "Invading Heavy Tank DMG",
+            "stat": "Invading Heavy Tank Damage",
+            "value": "-16%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Invading Fighter Hitpoints",
+            "value": "-7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Invading Fighter Hitpoints",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Fighter Damage",
+            "value": "-4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Invading Fighter Hitpoints",
+            "value": "-12%"
+          },
+          {
+            "stat": "Invading Fighter Damage",
+            "value": "-6%"
+          },
+          {
+            "stat": "Invading Bomber Damage",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Invading Fighter Hitpoints",
+            "value": "-16%"
+          },
+          {
+            "stat": "Invading Fighter Damage",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Bomber Damage",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Invading Fighter Hitpoints",
+            "value": "-20%"
+          },
+          {
+            "stat": "Invading Fighter Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Invading Bomber Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-16%"
+          },
+          {
+            "stat": "Invading Heavy Tank Damage",
             "value": "-16%"
           }
         ]
@@ -1587,7 +3027,7 @@
             "value": "-6%"
           },
           {
-            "stat": "Ranged Infantry DMG",
+            "stat": "Ranged Infantry Damage",
             "value": "+10%"
           }
         ],
@@ -1597,11 +3037,11 @@
             "value": "-7%"
           },
           {
-            "stat": "Ranged Infantry DMG",
+            "stat": "Ranged Infantry Damage",
             "value": "+12%"
           },
           {
-            "stat": "MRL DMG",
+            "stat": "MRL Damage",
             "value": "+10%"
           }
         ],
@@ -1611,15 +3051,15 @@
             "value": "-9%"
           },
           {
-            "stat": "Ranged Infantry DMG",
+            "stat": "Ranged Infantry Damage",
             "value": "+15%"
           },
           {
-            "stat": "MRL DMG",
+            "stat": "MRL Damage",
             "value": "+13%"
           },
           {
-            "stat": "Guerrilla HP",
+            "stat": "Guerrilla Hitpoints",
             "value": "+11%"
           }
         ],
@@ -1629,20 +3069,92 @@
             "value": "-12%"
           },
           {
-            "stat": "Ranged Infantry DMG",
+            "stat": "Ranged Infantry Damage",
             "value": "+20%"
           },
           {
-            "stat": "MRL DMG",
+            "stat": "MRL Damage",
             "value": "+16%"
           },
           {
-            "stat": "Guerrilla HP",
+            "stat": "Guerrilla Hitpoints",
             "value": "+14%"
           },
           {
             "stat": "Defender Spawn Time",
             "value": "-12%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Paratrooper Hitpoints",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Paratrooper Hitpoints",
+            "value": "+7%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Paratrooper Hitpoints",
+            "value": "+9%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+8%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Paratrooper Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+10%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Paratrooper Hitpoints",
+            "value": "+15%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+13%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+13%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+15%"
           }
         ]
       }
@@ -1655,67 +3167,139 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Guerrilla DMG",
+            "stat": "Guerrilla Damage",
             "value": "+7%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Guerrilla DMG",
+            "stat": "Guerrilla Damage",
             "value": "+9%"
           },
           {
-            "stat": "Guerrilla HP",
+            "stat": "Guerrilla Hitpoints",
             "value": "+9%"
           }
         ],
         "Rare": [
           {
-            "stat": "Guerrilla DMG",
+            "stat": "Guerrilla Damage",
             "value": "+12%"
           },
           {
-            "stat": "Guerrilla HP",
+            "stat": "Guerrilla Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
             "value": "+8%"
           }
         ],
         "Epic": [
           {
-            "stat": "Guerrilla DMG",
+            "stat": "Guerrilla Damage",
             "value": "+16%"
           },
           {
-            "stat": "Guerrilla HP",
+            "stat": "Guerrilla Hitpoints",
             "value": "+16%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
             "value": "+8%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
             "value": "+8%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Guerrilla DMG",
+            "stat": "Guerrilla Damage",
             "value": "+20%"
           },
           {
-            "stat": "Guerrilla HP",
+            "stat": "Guerrilla Hitpoints",
             "value": "+20%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
             "value": "+15%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Bazooka Attack Speed",
+            "value": "+15%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Guerrilla Damage",
+            "value": "+7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Guerrilla Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Guerrilla Hitpoints",
+            "value": "+9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Guerrilla Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Guerrilla Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+8%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Guerrilla Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Guerrilla Hitpoints",
+            "value": "+16%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Guerrilla Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Guerrilla Hitpoints",
+            "value": "+20%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Bazooka Damage",
             "value": "+15%"
           },
           {
@@ -1733,71 +3317,143 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Wall HP",
+            "stat": "Wall Hitpoints",
             "value": "-6%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Wall HP",
+            "stat": "Wall Hitpoints",
             "value": "-8%"
           },
           {
-            "stat": "Defensive Missile Silo DMG",
+            "stat": "Defensive Missile Silo Damage",
             "value": "-5%"
           }
         ],
         "Rare": [
           {
-            "stat": "Wall HP",
+            "stat": "Wall Hitpoints",
             "value": "-10%"
           },
           {
-            "stat": "Defensive Missile Silo DMG",
+            "stat": "Defensive Missile Silo Damage",
             "value": "-7%"
           },
           {
-            "stat": "General DMG",
+            "stat": "General Damage",
             "value": "+7%"
           }
         ],
         "Epic": [
           {
-            "stat": "Wall HP",
+            "stat": "Wall Hitpoints",
             "value": "-13%"
           },
           {
-            "stat": "Defensive Missile Silo DMG",
+            "stat": "Defensive Missile Silo Damage",
             "value": "-9%"
           },
           {
-            "stat": "General DMG",
+            "stat": "General Damage",
             "value": "+9%"
           },
           {
-            "stat": "General HP",
+            "stat": "General Hitpoints",
             "value": "+9%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Wall HP",
+            "stat": "Wall Hitpoints",
             "value": "-16%"
           },
           {
-            "stat": "Defensive Missile Silo DMG",
+            "stat": "Defensive Missile Silo Damage",
             "value": "-12%"
           },
           {
-            "stat": "General DMG",
+            "stat": "General Damage",
             "value": "+12%"
           },
           {
-            "stat": "General HP",
+            "stat": "General Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "Air Defense DMG",
+            "stat": "Air Defense Damage",
+            "value": "-20%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-6%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-8%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-5%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-10%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "General Damage",
+            "value": "+7%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-13%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-9%"
+          },
+          {
+            "stat": "General Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "General Hitpoints",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-16%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "General Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "General Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Air Defense Damage",
             "value": "-20%"
           }
         ]
@@ -1835,7 +3491,7 @@
             "value": "+8%"
           },
           {
-            "stat": "Generals' HP",
+            "stat": "Generals' Hitpoints",
             "value": "+3%"
           }
         ],
@@ -1849,11 +3505,11 @@
             "value": "+11%"
           },
           {
-            "stat": "Generals' HP",
+            "stat": "Generals' Hitpoints",
             "value": "+7%"
           },
           {
-            "stat": "Guerrilla HP",
+            "stat": "Guerrilla Hitpoints",
             "value": "+11%"
           }
         ],
@@ -1867,16 +3523,88 @@
             "value": "+15%"
           },
           {
-            "stat": "Generals' HP",
+            "stat": "Generals' Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "Guerrilla HP",
+            "stat": "Guerrilla Hitpoints",
             "value": "+15%"
           },
           {
-            "stat": "Invading Generals' Damage and HP",
+            "stat": "Invading Generals' Damage and Hitpoints",
             "value": "-8%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Gold From Carvans",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Gold From Carvans",
+            "value": "+5%"
+          },
+          {
+            "stat": "Machine Gun Infantry Hitpoints",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Gold From Carvans",
+            "value": "+9%"
+          },
+          {
+            "stat": "Machine Gun Infantry Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Oil from Oil Wells",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Ranged Infantry Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Gold From Carvans",
+            "value": "+15%"
+          },
+          {
+            "stat": "Machine Gun Infantry Hitpoints",
+            "value": "+20%"
+          },
+          {
+            "stat": "Oil from Oil Wells",
+            "value": "+15%"
+          },
+          {
+            "stat": "Guerrilla Damage",
+            "value": "+12%"
           }
         ]
       }
@@ -1889,67 +3617,139 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+3%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+4%"
           },
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+4%"
           }
         ],
         "Rare": [
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+6%"
           },
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+6%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-6%"
           }
         ],
         "Epic": [
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+8%"
           },
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+8%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-10%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+12%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+12%"
           },
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+12%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-16%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+12%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+3%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+4%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-10%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-16%"
+          },
+          {
+            "stat": "Heavy Infantry Damage",
             "value": "+20%"
           },
           {
@@ -1991,7 +3791,7 @@
             "value": "+6%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+8%"
           }
         ],
@@ -2005,11 +3805,11 @@
             "value": "+7%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+11%"
           },
           {
-            "stat": "Attack Helicopter DMG & HP",
+            "stat": "Attack Helicopter Damage & Hitpoints",
             "value": "+9%"
           }
         ],
@@ -2023,16 +3823,88 @@
             "value": "+9%"
           },
           {
-            "stat": "Paratrooper HP",
+            "stat": "Paratrooper Hitpoints",
             "value": "+15%"
           },
           {
-            "stat": "Attack Helicopter DMG & HP",
+            "stat": "Attack Helicopter Damage & Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "Bazooka & Paratrooper DMG",
+            "stat": "Bazooka & Paratrooper Damage",
             "value": "+5%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+6%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+8%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+7%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+9%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-7%"
+          },
+          {
+            "stat": "Invading Generals Damage & Hitpoints",
+            "value": "-5%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-10%"
+          },
+          {
+            "stat": "Invading Generals Damage & Hitpoints",
+            "value": "-6%"
+          },
+          {
+            "stat": "Defensive Missile Silo Damage",
+            "value": "+8%"
           }
         ]
       }
@@ -2109,8 +3981,80 @@
             "value": "+12%"
           },
           {
-            "stat": "MRL Damage and HP",
+            "stat": "MRL Damage and Hitpoints",
             "value": "+25%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Sabotage Duration",
+            "value": "+10%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Sabotage Duration",
+            "value": "+12%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Sabotage Duration",
+            "value": "+14%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-5%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Sabotage Duration",
+            "value": "+17%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-9%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Fighter Hitpoints",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Sabotage Duration",
+            "value": "+20%"
+          },
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-14%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Fighter Hitpoints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Invading Bomber Damage",
+            "value": "-14%"
           }
         ]
       }
@@ -2123,72 +4067,144 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-5%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-6%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-9%"
           }
         ],
         "Rare": [
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-7%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-11%"
           },
           {
-            "stat": "Enemy Air Defense DMG",
+            "stat": "Enemy Air Defense Damage",
             "value": "-10%"
           }
         ],
         "Epic": [
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-9%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-14%"
           },
           {
-            "stat": "Enemy Air Defense DMG",
+            "stat": "Enemy Air Defense Damage",
             "value": "-13%"
           },
           {
-            "stat": "Enemy Tower HP",
+            "stat": "Enemy Tower Hitpoints",
             "value": "-13%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-12%"
           },
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-14%"
           },
           {
-            "stat": "Enemy Air Defense DMG",
+            "stat": "Enemy Air Defense Damage",
             "value": "-16%"
           },
           {
-            "stat": "Enemy Tower HP",
+            "stat": "Enemy Tower Hitpoints",
             "value": "-16%"
           },
           {
-            "stat": "Enemy Missile Silo DMG",
+            "stat": "Enemy Missile Silo Damage",
             "value": "-12%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+8%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+10%"
+          },
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+12%"
+          },
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+11%"
+          },
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+12%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+15%"
+          },
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+14%"
+          },
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Attack Helicopter Damage & Hitpoints",
+            "value": "+9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Supply Cart Healing",
+            "value": "+20%"
+          },
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Ranged Siege Damage",
+            "value": "+20%"
+          },
+          {
+            "stat": "Attack Helicopter Damage & Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+24%"
           }
         ]
       }
@@ -2225,7 +4241,7 @@
             "value": "-5%"
           },
           {
-            "stat": "Invading Guerrilla HP",
+            "stat": "Invading Guerrilla Hitpoints",
             "value": "-4%"
           }
         ],
@@ -2239,11 +4255,11 @@
             "value": "-9%"
           },
           {
-            "stat": "Invading Guerrilla HP",
+            "stat": "Invading Guerrilla Hitpoints",
             "value": "-8%"
           },
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-8%"
           }
         ],
@@ -2257,15 +4273,87 @@
             "value": "-16%"
           },
           {
-            "stat": "Invading Guerrilla HP",
+            "stat": "Invading Guerrilla Hitpoints",
             "value": "-13%"
           },
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-12%"
           },
           {
-            "stat": "Invading Fighter Damage and HP",
+            "stat": "Invading Fighter Damage and Hitpoints",
+            "value": "-8%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+3%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+5%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+9%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+7%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+16%"
+          },
+          {
+            "stat": "Sniper Tower Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Paratrooper Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Invading Generals' Damage and Hitpoints",
             "value": "-8%"
           }
         ]
@@ -2279,72 +4367,144 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+5%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+7%"
           },
           {
-            "stat": "MRL DMG",
+            "stat": "MRL Damage",
             "value": "+7%"
           }
         ],
         "Rare": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+9%"
           },
           {
-            "stat": "MRL DMG",
+            "stat": "MRL Damage",
             "value": "+9%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+7%"
           }
         ],
         "Epic": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "MRL DMG",
+            "stat": "MRL Damage",
             "value": "+11%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+9%"
           },
           {
-            "stat": "Generals DMG",
+            "stat": "Generals Damage",
             "value": "+11%"
           }
         ],
         "Legendary": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+15%"
           },
           {
-            "stat": "MRL DMG",
+            "stat": "MRL Damage",
             "value": "+14%"
           },
           {
-            "stat": "Generals HP",
+            "stat": "Generals Hitpoints",
             "value": "+12%"
           },
           {
-            "stat": "Generals DMG",
+            "stat": "Generals Damage",
             "value": "+14%"
           },
           {
-            "stat": "MRL DMG & HP",
+            "stat": "MRL Damage & Hitpoints",
             "value": "+25%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-6%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+4%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-7%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+5%"
+          },
+          {
+            "stat": "MRL Damage",
+            "value": "+10%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-9%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+7%"
+          },
+          {
+            "stat": "MRL Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "MRL Damage & Hitpoints",
+            "value": "+17%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Enemy Wall Hitpoints",
+            "value": "-12%"
+          },
+          {
+            "stat": "Heavy Tank Hitpoints",
+            "value": "+10%"
+          },
+          {
+            "stat": "MRL Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "MRL Damage & Hitpoints",
+            "value": "+20%"
+          },
+          {
+            "stat": "Heavy Tank Damage",
+            "value": "+6%"
           }
         ]
       }
@@ -2357,13 +4517,13 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-7%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-9%"
           },
           {
@@ -2373,7 +4533,7 @@
         ],
         "Rare": [
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-12%"
           },
           {
@@ -2381,13 +4541,13 @@
             "value": "-12%"
           },
           {
-            "stat": "Air Defense DMG",
+            "stat": "Air Defense Damage",
             "value": "+6%"
           }
         ],
         "Epic": [
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-16%"
           },
           {
@@ -2395,7 +4555,79 @@
             "value": "-16%"
           },
           {
-            "stat": "Air Defense DMG",
+            "stat": "Air Defense Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-20%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-20%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Defensive Missile Silo Damage",
+            "value": "+12%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-9%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-12%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-12%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-16%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-16%"
+          },
+          {
+            "stat": "Air Defense Damage",
             "value": "+11%"
           },
           {
@@ -2405,7 +4637,7 @@
         ],
         "Legendary": [
           {
-            "stat": "Invading Heavy Tank HP",
+            "stat": "Invading Heavy Tank Hitpoints",
             "value": "-20%"
           },
           {
@@ -2413,7 +4645,7 @@
             "value": "-20%"
           },
           {
-            "stat": "Air Defense DMG",
+            "stat": "Air Defense Damage",
             "value": "+18%"
           },
           {
@@ -2421,7 +4653,7 @@
             "value": "+15%"
           },
           {
-            "stat": "Defensive Missile Silo DMG",
+            "stat": "Defensive Missile Silo Damage",
             "value": "+12%"
           }
         ]
@@ -2435,45 +4667,45 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-10%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-11%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+9%"
           }
         ],
         "Rare": [
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-13%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+11%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-11%"
           }
         ],
         "Epic": [
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-15%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+13%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-12%"
           },
           {
@@ -2483,15 +4715,15 @@
         ],
         "Legendary": [
           {
-            "stat": "Enemy Tower DMG",
+            "stat": "Enemy Tower Damage",
             "value": "-18%"
           },
           {
-            "stat": "Heavy Infantry DMG",
+            "stat": "Heavy Infantry Damage",
             "value": "+16%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-16%"
           },
           {
@@ -2499,8 +4731,80 @@
             "value": "+12%"
           },
           {
-            "stat": "Generals DMG",
+            "stat": "Generals Damage",
             "value": "+16%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Gold from Caravans",
+            "value": "+7%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Gold from Caravans",
+            "value": "+8%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+11%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Gold from Caravans",
+            "value": "+10%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+13%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+11%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Gold from Caravans",
+            "value": "+12%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+15%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+13%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Gold from Caravans",
+            "value": "+15%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+18%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+16%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-12%"
+          },
+          {
+            "stat": "Invading Generals Attack Speed",
+            "value": "-12%"
           }
         ]
       }
@@ -2577,7 +4881,79 @@
             "value": "-14%"
           },
           {
-            "stat": "Paratrooper Damage and HP",
+            "stat": "Paratrooper Damage and Hitpoints",
+            "value": "+8%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Machine Gun Infantry Hitpoints",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Machine Gun Infantry Hitpoints",
+            "value": "+5%"
+          },
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Machine Gun Infantry Hitpoints",
+            "value": "+11%"
+          },
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+10%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Machine Gun Infantry Hitpoints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+16%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Air Defense Damage and Hitpoints",
             "value": "+8%"
           }
         ]
@@ -2655,8 +5031,80 @@
             "value": "+18%"
           },
           {
-            "stat": "Paratrooper Damage and HP",
+            "stat": "Paratrooper Damage and Hitpoints",
             "value": "+14%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+7%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+9%"
+          },
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+11%"
+          },
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-7%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defensive Tower Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+16%"
+          },
+          {
+            "stat": "Invading Heavy Tank Hitpoints",
+            "value": "-10%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-14%"
+          },
+          {
+            "stat": "Invading Bomber Damage",
+            "value": "-14%"
           }
         ]
       }
@@ -2679,7 +5127,7 @@
             "value": "+3%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-3%"
           }
         ],
@@ -2689,7 +5137,7 @@
             "value": "+6%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-5%"
           },
           {
@@ -2703,7 +5151,7 @@
             "value": "+12%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-9%"
           },
           {
@@ -2721,7 +5169,7 @@
             "value": "+20%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-14%"
           },
           {
@@ -2733,8 +5181,80 @@
             "value": "-14%"
           },
           {
-            "stat": "Paratrooper Damage and HP",
+            "stat": "Paratrooper Damage and Hitpoints",
             "value": "+8%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+2%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+4%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-5%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+7%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Wall Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-16%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Air Defense Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "All Defensive Tower Damage and Hitpoints",
+            "value": "+6%"
           }
         ]
       }
@@ -2757,7 +5277,7 @@
             "value": "+7%"
           },
           {
-            "stat": "Mercenary HP",
+            "stat": "Mercenary Hitpoints",
             "value": "+3%"
           }
         ],
@@ -2767,7 +5287,7 @@
             "value": "+10%"
           },
           {
-            "stat": "Mercenary HP",
+            "stat": "Mercenary Hitpoints",
             "value": "+5 %"
           },
           {
@@ -2781,7 +5301,7 @@
             "value": "+12%"
           },
           {
-            "stat": "Mercenary HP",
+            "stat": "Mercenary Hitpoints",
             "value": "+11%"
           },
           {
@@ -2789,7 +5309,7 @@
             "value": "+10%"
           },
           {
-            "stat": "Attack Helicopter Damage and HP",
+            "stat": "Attack Helicopter Damage and Hitpoints",
             "value": "+8%"
           }
         ],
@@ -2799,7 +5319,7 @@
             "value": "+15%"
           },
           {
-            "stat": "Mercenary HP",
+            "stat": "Mercenary Hitpoints",
             "value": "+18%"
           },
           {
@@ -2807,12 +5327,84 @@
             "value": "+15%"
           },
           {
-            "stat": "Attack Helicopter Damage and HP",
+            "stat": "Attack Helicopter Damage and Hitpoints",
             "value": "+12%"
           },
           {
             "stat": "Enemy Missile Silo Damage",
             "value": "-12%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+3%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+2%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+4%"
+          },
+          {
+            "stat": "Invading Raider Damage",
+            "value": "-5%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+7%"
+          },
+          {
+            "stat": "Invading Raider Damage",
+            "value": "-13%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mercenary Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+10%"
+          },
+          {
+            "stat": "Invading Raider Damage",
+            "value": "-16%"
+          },
+          {
+            "stat": "Looted Resource Refund",
+            "value": "+15%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+15%"
           }
         ]
       }
@@ -2825,71 +5417,143 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "MRL DMG & HP",
+            "stat": "MRL Damage & Hitpoints",
             "value": "+6%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "MRL DMG & HP",
+            "stat": "MRL Damage & Hitpoints",
             "value": "+8%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
             "value": "+8%"
           }
         ],
         "Rare": [
           {
-            "stat": "MRL DMG & HP",
+            "stat": "MRL Damage & Hitpoints",
             "value": "+11%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
             "value": "+9%"
           },
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+11%"
           }
         ],
         "Epic": [
           {
-            "stat": "MRL DMG & HP",
+            "stat": "MRL Damage & Hitpoints",
             "value": "+14%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
             "value": "+11%"
           },
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+14%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+10%"
           }
         ],
         "Legendary": [
           {
-            "stat": "MRL DMG & HP",
+            "stat": "MRL Damage & Hitpoints",
             "value": "+18%"
           },
           {
-            "stat": "Bazooka DMG",
+            "stat": "Bazooka Damage",
             "value": "+14%"
           },
           {
-            "stat": "Mortar Infantry DMG",
+            "stat": "Mortar Infantry Damage",
             "value": "+18%"
           },
           {
-            "stat": "Bomber DMG",
+            "stat": "Bomber Damage",
             "value": "+16%"
           },
           {
-            "stat": "MRL DMG & HP",
+            "stat": "MRL Damage & Hitpoints",
+            "value": "+18%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "MRL Damage & Hitpoints",
+            "value": "+6%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "MRL Damage & Hitpoints",
+            "value": "+8%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+8%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "MRL Damage & Hitpoints",
+            "value": "+11%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+11%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "MRL Damage & Hitpoints",
+            "value": "+14%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+10%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "MRL Damage & Hitpoints",
+            "value": "+18%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Bomber Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "MRL Damage & Hitpoints",
             "value": "+18%"
           }
         ]
@@ -2913,7 +5577,7 @@
             "value": "+2%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-3%"
           }
         ],
@@ -2923,7 +5587,7 @@
             "value": "+4%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-5%"
           },
           {
@@ -2937,7 +5601,7 @@
             "value": "+8%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-9%"
           },
           {
@@ -2955,7 +5619,7 @@
             "value": "+13%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-14%"
           },
           {
@@ -2969,6 +5633,78 @@
           {
             "stat": "Heavy Tank Damage",
             "value": "+6%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+2%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+4%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-5%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+7%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-9%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-7%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+12%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Defender Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Defender Spawn Time",
+            "value": "-16%"
+          },
+          {
+            "stat": "Invading Generals' Damage",
+            "value": "-12%"
+          },
+          {
+            "stat": "Defender Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Defensive Missile Silo Damage",
+            "value": "+12%"
           }
         ]
       }
@@ -2991,7 +5727,7 @@
             "value": "-6%"
           },
           {
-            "stat": "Defender DMG",
+            "stat": "Defender Damage",
             "value": "+7%"
           }
         ],
@@ -3001,11 +5737,11 @@
             "value": "-7%"
           },
           {
-            "stat": "Defender DMG",
+            "stat": "Defender Damage",
             "value": "+9%"
           },
           {
-            "stat": "Defender HP",
+            "stat": "Defender Hitpoints",
             "value": "+10%"
           }
         ],
@@ -3015,15 +5751,15 @@
             "value": "-9%"
           },
           {
-            "stat": "Defender DMG",
+            "stat": "Defender Damage",
             "value": "+11%"
           },
           {
-            "stat": "Defender HP",
+            "stat": "Defender Hitpoints",
             "value": "13%"
           },
           {
-            "stat": "Air Defense DMG & HP",
+            "stat": "Air Defense Damage & Hitpoints",
             "value": "+6%"
           }
         ],
@@ -3033,20 +5769,92 @@
             "value": "-12%"
           },
           {
-            "stat": "Defender DMG",
+            "stat": "Defender Damage",
             "value": "+14%"
           },
           {
-            "stat": "Defender HP",
+            "stat": "Defender Hitpoints",
             "value": "+16%"
           },
           {
-            "stat": "Air Defense DMG & HP",
+            "stat": "Air Defense Damage & Hitpoints",
             "value": "+8%"
           },
           {
-            "stat": "All Defensive Tower DMG & HP",
+            "stat": "All Defensive Tower Damage & Hitpoints",
             "value": "8%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+5%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+6%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+8%"
+          },
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+9%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+12%"
+          },
+          {
+            "stat": "Generals Damage",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+16%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+13%"
+          },
+          {
+            "stat": "Machine Gun Infantry Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Generals Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Enemy Missile Silo Damage",
+            "value": "-12%"
           }
         ]
       }
@@ -3059,13 +5867,13 @@
       "warBonuses": {
         "Common": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+1%"
           }
         ],
         "Uncommon": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+3%"
           },
           {
@@ -3075,7 +5883,7 @@
         ],
         "Rare": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+5%"
           },
           {
@@ -3089,7 +5897,7 @@
         ],
         "Epic": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+10%"
           },
           {
@@ -3107,7 +5915,7 @@
         ],
         "Legendary": [
           {
-            "stat": "Heavy Cavalry HP",
+            "stat": "Heavy Cavalry Hitpoints",
             "value": "+15%"
           },
           {
@@ -3123,8 +5931,80 @@
             "value": "+14%"
           },
           {
-            "stat": "All Defensive Tower Damage and HP",
+            "stat": "All Defensive Tower Damage and Hitpoints",
             "value": "+6%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+6%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+8%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+6%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+6%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+10%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+11%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+10%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Infantry Attack Speed",
+            "value": "+13%"
+          },
+          {
+            "stat": "Mortar Infantry Damage",
+            "value": "+18%"
+          },
+          {
+            "stat": "Bazooka Damage",
+            "value": "+15%"
+          },
+          {
+            "stat": "Generals' Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Invading Heavy Tank Damage",
+            "value": "-10%"
           }
         ]
       }
@@ -3147,7 +6027,7 @@
             "value": "-3%"
           },
           {
-            "stat": "Mercenary Hitopints",
+            "stat": "Mercenary Hitpoints",
             "value": "+3%"
           }
         ],
@@ -3157,7 +6037,7 @@
             "value": "-5%"
           },
           {
-            "stat": "Mercenary Hitopints",
+            "stat": "Mercenary Hitpoints",
             "value": "+5%"
           },
           {
@@ -3171,7 +6051,7 @@
             "value": "-9%"
           },
           {
-            "stat": "Mercenary Hitopints",
+            "stat": "Mercenary Hitpoints",
             "value": "+11%"
           },
           {
@@ -3189,7 +6069,7 @@
             "value": "-14%"
           },
           {
-            "stat": "Mercenary Hitopints",
+            "stat": "Mercenary Hitpoints",
             "value": "+18%"
           },
           {
@@ -3203,6 +6083,78 @@
           {
             "stat": "Bomber Damage",
             "value": "+8%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+3%"
+          },
+          {
+            "stat": "Raider Damage",
+            "value": "+3%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+6%"
+          },
+          {
+            "stat": "Raider Damage",
+            "value": "+5%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Raider Damage",
+            "value": "+9%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+7%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+11%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Mercenary Hitpoints",
+            "value": "+20%"
+          },
+          {
+            "stat": "Raider Damage",
+            "value": "+14%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+12%"
+          },
+          {
+            "stat": "Oil Looted",
+            "value": "+15%"
+          },
+          {
+            "stat": "All Resources Looted",
+            "value": "+12%"
           }
         ]
       }
@@ -3225,7 +6177,7 @@
             "value": "+2%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-3%"
           }
         ],
@@ -3235,11 +6187,11 @@
             "value": "+4%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-5%"
           },
           {
-            "stat": "Invading Fighter HP",
+            "stat": "Invading Fighter Hitpoints",
             "value": "-5%"
           }
         ],
@@ -3249,11 +6201,11 @@
             "value": "+8%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-9%"
           },
           {
-            "stat": "Invading Fighter HP",
+            "stat": "Invading Fighter Hitpoints",
             "value": "-10%"
           },
           {
@@ -3267,11 +6219,11 @@
             "value": "+13%"
           },
           {
-            "stat": "Enemy Wall HP",
+            "stat": "Enemy Wall Hitpoints",
             "value": "-14%"
           },
           {
-            "stat": "Invading Fighter HP",
+            "stat": "Invading Fighter Hitpoints",
             "value": "-16%"
           },
           {
@@ -3279,8 +6231,80 @@
             "value": "-12%"
           },
           {
-            "stat": "Bomber Damage and HP",
+            "stat": "Bomber Damage and Hitpoints",
             "value": "+7%"
+          }
+        ]
+      },
+      "multiplayerBonuses": {
+        "Common": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+1%"
+          }
+        ],
+        "Uncommon": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+3%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+2%"
+          }
+        ],
+        "Rare": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+5%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+4%"
+          },
+          {
+            "stat": "Air Defense Hitpoints",
+            "value": "+3%"
+          }
+        ],
+        "Epic": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+10%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+6%"
+          },
+          {
+            "stat": "Air Defense Hitpoints",
+            "value": "+7%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and Hitpoints",
+            "value": "+8%"
+          }
+        ],
+        "Legendary": [
+          {
+            "stat": "Heavy Cavalry Hitpoints",
+            "value": "+15%"
+          },
+          {
+            "stat": "Food, Gold and Oil Generated",
+            "value": "+10%"
+          },
+          {
+            "stat": "Air Defense Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Attack Helicopter Damage and Hitpoints",
+            "value": "+12%"
+          },
+          {
+            "stat": "Invading Generals' Attack Speed",
+            "value": "-15%"
           }
         ]
       }

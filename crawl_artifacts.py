@@ -125,18 +125,20 @@ def find_duplicates(values: Iterable[str]) -> list[str]:
     return sorted(duplicates, key=str.casefold)
 
 
-def discover_artifacts(wikitext: str) -> list[dict[str, str]]:
+def discover_artifacts(
+    wikitext: str, *, list_heading: str = "List of Legendary War Artifacts"
+) -> list[dict[str, str]]:
     """Discover linked leaf artifacts, including nested group children."""
 
     section = re.search(
-        r"^==\s*List of Legendary War Artifacts\s*==\s*$"
+        rf"^==\s*{re.escape(list_heading)}\s*==\s*$"
         r"([\s\S]*?)(?=^==[^=]|\Z)",
         wikitext,
         flags=re.IGNORECASE | re.MULTILINE,
     )
     if not section:
         raise CrawlError(
-            "Legendary War Artifacts page has no recognizable artifact list"
+            f"{list_heading} page has no recognizable artifact list"
         )
 
     artifacts: list[dict[str, str]] = []
@@ -245,7 +247,12 @@ def parse_cell(raw_value: str, page_name: str) -> TableCell:
 
 def split_table_cells(line: str, page_name: str) -> list[TableCell]:
     separator = "!!" if line[0] == "!" else "||"
-    return [parse_cell(value, page_name) for value in line[1:].split(separator)]
+    body = line[1:]
+    # Some source pages accidentally begin a first table cell with two pipes.
+    # Treat the extra delimiter as markup instead of part of the benefit name.
+    if line.startswith("||"):
+        body = body[1:]
+    return [parse_cell(value, page_name) for value in body.split(separator)]
 
 
 def parse_wikitable(table: str, page_name: str) -> list[list[str]]:
@@ -356,8 +363,10 @@ def extract_bonuses(wikitext: str, page_name: str) -> list[str]:
     return [f"{benefit} {value}" for benefit, value in data_rows]
 
 
-def validate_catalog(catalog: dict[str, Any]) -> None:
-    if catalog.get("source") != SOURCE_URL:
+def validate_catalog(
+    catalog: dict[str, Any], *, expected_source: str = SOURCE_URL
+) -> None:
+    if catalog.get("source") != expected_source:
         raise CrawlError("Catalog source URL is incorrect")
     artifacts = catalog.get("artifacts")
     if not isinstance(artifacts, list) or not artifacts:
@@ -446,17 +455,25 @@ def serialize_catalog(catalog: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def embed_catalog(html_text: str, serialized: str, path: Path) -> str:
+def embed_catalog(
+    html_text: str,
+    serialized: str,
+    path: Path,
+    *,
+    embed_start: str = EMBED_START,
+    embed_end: str = EMBED_END,
+    catalog_label: str = "artifact",
+) -> str:
     """Replace the helper's one embedded catalog without changing other markup."""
 
-    if html_text.count(EMBED_START) != 1:
+    if html_text.count(embed_start) != 1:
         raise CrawlError(
-            f"{path}: expected exactly one artifact data script opening marker"
+            f"{path}: expected exactly one {catalog_label} data script opening marker"
         )
-    start = html_text.index(EMBED_START) + len(EMBED_START)
-    end = html_text.find(EMBED_END, start)
+    start = html_text.index(embed_start) + len(embed_start)
+    end = html_text.find(embed_end, start)
     if end < 0:
-        raise CrawlError(f"{path}: artifact data script has no closing marker")
+        raise CrawlError(f"{path}: {catalog_label} data script has no closing marker")
     embedded = serialized.rstrip("\n").replace("</", "<\\/")
     return html_text[:start] + embedded + html_text[end:]
 
