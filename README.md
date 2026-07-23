@@ -39,23 +39,18 @@ The page is also self-contained. Its embedded data matches the reusable `council
 
 ## Run locally
 
-Open `legendary-artifact-finder.html` directly in a modern browser, or start the included standard-library Python server:
+Open either HTML page directly in a modern browser, or from the repository root start Python's built-in HTTP server:
 
 ```bash
-python3 serve_artifact_finder.py
+python3 -m http.server 8000 --bind 127.0.0.1 --directory .
 ```
 
-Then open http://127.0.0.1:8000/legendary-artifact-finder.html.
+Then open either helper:
 
-The same server also makes the Council helper available at http://127.0.0.1:8000/councilor-helper.html. Both HTML files can also be opened directly from disk.
+- http://127.0.0.1:8000/legendary-artifact-finder.html
+- http://127.0.0.1:8000/councilor-helper.html
 
-To start the Council helper directly and open it in your default browser, run:
-
-```bash
-python3 serve_councilor_helper.py
-```
-
-Use `--port` to select another port or `--no-browser` when running without a desktop browser.
+Serving the directory allows the Artifact Helper to refresh its external JSON catalogs; both pages also work directly from disk using their embedded data.
 
 With GitHub Pages enabled for this repository, the hosted tools are available at:
 
@@ -64,9 +59,30 @@ With GitHub Pages enabled for this repository, the hosted tools are available at
 
 ## Data
 
+The JSON files are reusable catalogs for the browser pages. Each crawler uses only the Python standard library and the public DomiNations Fandom MediaWiki API. A successful run validates the parsed tables, writes the external JSON, and replaces the matching embedded JSON block in the HTML page so direct-file use continues to work.
+
+### Legendary Artifact catalogs
+
 War artifact names are sourced from the [DomiNations Legendary War Artifacts wiki page](https://dominations.fandom.com/wiki/Legendary_War_Artifacts#List_of_Legendary_War_Artifacts). Multiplayer artifact names are sourced from the [DomiNations Legendary Artifacts wiki page](https://dominations.fandom.com/wiki/Legendary_Artifacts). Bonuses are read from the Statistic table on each linked artifact page. Linked artifacts whose page or bonus data is unavailable remain in the catalog with an `unavailable` status.
 
 When updating data, keep each external artifact JSON file and its matching embedded JSON block in `legendary-artifact-finder.html` identical.
+
+`legendary-war-artifacts.json` and `legendary-multiplayer-artifacts.json` use this format:
+
+```json
+{
+  "source": "wiki list URL",
+  "artifacts": [
+    {
+      "name": "Artifact name",
+      "status": "available",
+      "bonuses": ["Bonus text", "..."]
+    }
+  ]
+}
+```
+
+`status` is either `available` or `unavailable`. Unavailable artifacts have an empty `bonuses` list because the crawler could not find usable bonus data on the source page.
 
 Regenerate and validate the Legendary War Artifact data with:
 
@@ -84,7 +100,35 @@ python3 crawl_multiplayer_artifacts.py
 
 The Multiplayer crawler updates `legendary-multiplayer-artifacts.json` and its embedded page data together.
 
+### Councilor catalog
+
 Councilor names and types are sourced from the [DomiNations Councilors list](https://dominations.fandom.com/wiki/Councilors#Councilors_List). War and Multiplayer bonuses are read from the War Chamber and Primary Chamber tables on each councilor's page and expanded into the complete effective bonus list for every rarity.
+
+`councilors.json` uses this format:
+
+```json
+{
+  "source": "wiki list URL",
+  "generatedAt": "ISO-8601 UTC timestamp",
+  "rarities": ["Common", "Uncommon", "Rare", "Epic", "Legendary"],
+  "councilors": [
+    {
+      "id": "stable-lowercase-id",
+      "name": "Councilor name",
+      "type": "Leader",
+      "sourceUrl": "wiki page URL",
+      "warBonuses": {
+        "Common": [{"stat": "Bonus name", "value": "+1%"}]
+      },
+      "multiplayerBonuses": {
+        "Common": [{"stat": "Bonus name", "value": "+1%"}]
+      }
+    }
+  ]
+}
+```
+
+Every Councilor includes all five rarity keys in both bonus maps. The entries are the effective bonuses at that rarity, so a higher rarity repeats benefits unlocked at lower rarities where the wiki table provides them.
 
 Regenerate and validate the Councilor data with:
 
